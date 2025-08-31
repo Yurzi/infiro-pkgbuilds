@@ -3,7 +3,7 @@
 
 pkgname=v2ray-geoip-loyalsoldier
 pkgver=202508302212
-pkgrel=1
+pkgrel=2
 pkgdesc="GeoIP list for routing purpose in Project V, with enhancements by Loyalsoldier"
 arch=('any')
 url="https://github.com/Loyalsoldier/v2ray-rules-dat"
