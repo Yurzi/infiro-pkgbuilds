@@ -1,0 +1,22 @@
+# Maintainer: yurzi <yurzi@foxmail.com>
+# Contributor: yurzi <yurzi@foxmail.com>
+
+pkgname=v2ray-domain-list-loyalsoldier
+pkgver=202508302212
+pkgrel=1
+pkgdesc="A list of domains to be used as geosites for routing purpose in Project V, with enhancements by Loyalsoldier"
+arch=('any')
+url="https://github.com/Loyalsoldier/v2ray-rules-dat"
+license=('GPL-3.0-only')
+provides=('v2ray-domain-list-community')
+conflicts=('v2ray-domain-list-community')
+
+source=(
+    "geosite-$pkgver.dat::https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$pkgver/geosite.dat"
+    )
+
+sha256sums=('45def7b5290e712cfbfc1c0a48c4a9f83cf68c5ab7f066a4f93c144c870b0c9b')
+
+package() {
+  install -Dm644 geosite-$pkgver.dat "$pkgdir"/usr/share/v2ray/geosite.dat
+}
