@@ -2,8 +2,8 @@
 # Contributor: yurzi <yurzi@foxmail.com>
 
 pkgname=v2ray-geoip-loyalsoldier
-pkgver=202508302212
-pkgrel=2
+pkgver=202508312212
+pkgrel=1
 pkgdesc="GeoIP list for routing purpose in Project V, with enhancements by Loyalsoldier"
 arch=('any')
 url="https://github.com/Loyalsoldier/v2ray-rules-dat"
