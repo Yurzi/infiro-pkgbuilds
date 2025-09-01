@@ -1,0 +1,79 @@
+diff -Naur tencentcloud-sdk-python-3.0.1450/QcloudApi/common/request.py tencentcloud-sdk-python-3.0.1450-new/QcloudApi/common/request.py
+--- tencentcloud-sdk-python-3.0.1450/QcloudApi/common/request.py	2025-08-27 04:50:30.000000000 +0800
++++ tencentcloud-sdk-python-3.0.1450-new/QcloudApi/common/request.py	2025-09-01 11:36:16.359304646 +0800
+@@ -3,12 +3,8 @@
+ 
+ import os
+ import socket
+-try:
+-    from http.client import HTTPConnection, BadStatusLine, HTTPSConnection
+-    from urllib.parse import urlparse
+-except ImportError:
+-    from httplib import HTTPConnection, BadStatusLine, HTTPSConnection
+-    from urlparse import urlparse
++from http.client import HTTPConnection, BadStatusLine, HTTPSConnection
++from urllib.parse import urlparse
+ 
+ from .api_exception import ApiClientNetworkException, ApiClientParamException
+ 
+diff -Naur tencentcloud-sdk-python-3.0.1450/tencentcloud/common/abstract_client.py tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/abstract_client.py
+--- tencentcloud-sdk-python-3.0.1450/tencentcloud/common/abstract_client.py	2025-08-27 04:50:30.000000000 +0800
++++ tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/abstract_client.py	2025-09-01 11:37:18.470012192 +0800
+@@ -25,13 +25,8 @@
+ import warnings
+ import logging
+ import logging.handlers
+-
+-try:
+-    from urllib.parse import urlencode
+-    from urllib.parse import urlparse
+-except ImportError:
+-    from urllib import urlencode
+-    from urlparse import urlparse
++from urllib.parse import urlencode
++from urllib.parse import urlparse
+ 
+ import tencentcloud
+ from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
+diff -Naur tencentcloud-sdk-python-3.0.1450/tencentcloud/common/credential.py tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/credential.py
+--- tencentcloud-sdk-python-3.0.1450/tencentcloud/common/credential.py	2025-08-27 04:50:30.000000000 +0800
++++ tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/credential.py	2025-09-01 11:36:04.528368850 +0800
+@@ -17,17 +17,9 @@
+ import os
+ import time
+ import threading
+-
+-try:
+-    # py3
+-    import configparser
+-    from urllib.parse import urlencode
+-    from urllib.request import urlopen
+-except ImportError:
+-    # py2
+-    import ConfigParser as configparser
+-    from urllib import urlencode
+-    from urllib import urlopen
++import configparser
++from urllib.parse import urlencode
++from urllib.request import urlopen
+ 
+ from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
+ from tencentcloud.common.common_client import CommonClient
+diff -Naur tencentcloud-sdk-python-3.0.1450/tencentcloud/common/http/request.py tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/http/request.py
+--- tencentcloud-sdk-python-3.0.1450/tencentcloud/common/http/request.py	2025-08-27 04:50:30.000000000 +0800
++++ tencentcloud-sdk-python-3.0.1450-new/tencentcloud/common/http/request.py	2025-09-01 11:36:52.913123736 +0800
+@@ -7,12 +7,9 @@
+ import requests
+ import certifi
+ 
+-from tencentcloud.common.http.pre_conn import PreConnAdapter
++from urllib.parse import urlparse
+ 
+-try:
+-    from urllib.parse import urlparse
+-except ImportError:
+-    from urlparse import urlparse
++from tencentcloud.common.http.pre_conn import PreConnAdapter
+ 
+ from tencentcloud.common.exception.tencent_cloud_sdk_exception import TencentCloudSDKException
+ 
