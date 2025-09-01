@@ -16,4 +16,4 @@ post_build_script: |
 update_on:
   - source: github
     github:  TencentCloud/tencentcloud-cli 
-    use_latest_release: true
+    use_latest_tag: true
