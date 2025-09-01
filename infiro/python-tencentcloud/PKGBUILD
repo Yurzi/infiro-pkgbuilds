@@ -1,7 +1,6 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname='python-tencentcloud'
-_pkgname='tencentcloud-sdk-python'
 pkgver=3.0.1453
 pkgrel=1
 pkgdesc='Tencent Cloud API 3.0 SDK for Python'
@@ -13,29 +12,29 @@ depends=(python python-requests python-urllib3 python-certifi)
 makedepends=(git python-build python-installer python-setuptools python-wheel)
 conflicts=(tencentcloud-sdk-python)
 source=(
-	"${_pkgname}-${pkgver}.tar.gz"::"${url}/archive/refs/tags/${pkgver}.tar.gz"
+	"tencentcloud-sdk-python-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
 	'01-python3-imports.patch'
 )
 sha256sums=('616193218dfa41e610043cb80e18edb70b1a2834007ec8aba15df75d6fe2b831'
             'a1ad959180ef49d428e171936ba9c25f4dba937b0588d60d47e1b44003525567')
 
 prepare() {
-	cd "${_pkgname}-${pkgver}"
+	cd "tencentcloud-sdk-python-${pkgver}"
 	patch -Np1 -i ../01-python3-imports.patch
 }
 
 build() {
-	cd "${_pkgname}-${pkgver}"
+	cd "tencentcloud-sdk-python-${pkgver}"
 	python -m build --wheel --no-isolation
 }
 
 check() {
-	cd "${_pkgname}-${pkgver}"
+	cd "tencentcloud-sdk-python-${pkgver}"
 	PYTHONPATH=${pkgdir}/src python -c "import tencentcloud"
 }
 
 package() {
-	cd "${_pkgname}-${pkgver}"
+	cd "tencentcloud-sdk-python-${pkgver}"
 	python -m installer --destdir="${pkgdir}" dist/*.whl
-	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${_pkgname}/LICENSE"
+	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
