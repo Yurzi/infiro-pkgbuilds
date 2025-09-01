@@ -14,7 +14,7 @@ depends=(
 )
 conflicts=("${_extname,,}-bin" "${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
 makedepends=(
-	'rustup' # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
+	'rust' # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
 	'clang>=16' # upstream builds with clang, claims to work with gcc but does not yet
 	# 'gcc>=14' # part of base-devel and hence preferred to clang
 	'postgresql-pgvector'
@@ -26,18 +26,11 @@ install=info.install
 
 prepare(){
 	cd "$srcdir/$_archive"
-	export CARGO_HOME="$srcdir/cargo-cache"       # do not litter in ~
-	# install the toolchain recorded in rust-toolchain.toml
-	_toolchain=$(grep -oP 'channel\s*=\s*"\Knightly-[^"]+' rust-toolchain.toml)
-	msg "Installing required rust toolchain from rust-toolchain.toml: $_toolchain"
-	rustup toolchain install "$_toolchain"
 	# pre-download rust dependencies already in prepare()
-	cargo fetch --locked --target="$CARCH-unknown-linux-gnu"
+	cargo fetch --locked --target="$(rustc -vV | sed -n 's/host: //p')"
 }
 build() {
 	cd "$srcdir/$_archive"
-	# export CC=gcc # does not yet work with gcc
-  	export CARGO_HOME="$srcdir/cargo-cache"       # do not litter in ~
 	export RUST_BACKTRACE=1 # show backtrace on error
   	make build
 }
