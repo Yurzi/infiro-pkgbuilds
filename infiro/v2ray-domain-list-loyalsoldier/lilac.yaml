@@ -9,4 +9,6 @@ update_on:
     github: Loyalsoldier/v2ray-rules-dat
     use_latest_release: true
 
-maintainers: []
+maintainers:
+  - github: Yurzi
+    email: yurzi@foxmail.com
