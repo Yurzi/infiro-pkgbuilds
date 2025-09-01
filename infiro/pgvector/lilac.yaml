@@ -13,4 +13,5 @@ post_build_script: |
 update_on:
   - source: github
     github:  pgvector/pgvector 
+    prefix: v
     use_latest_tag: true
