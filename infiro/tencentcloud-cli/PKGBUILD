@@ -9,14 +9,9 @@ url='https://github.com/TencentCloud/tencentcloud-cli'
 _execname='tccli'
 license=('Apache-2.0')
 arch=('any')
-depends=(
-	python
-	python-six
-	python-jmespath
-	python-tencentcloud
-)
+depends=(python python-six python-jmespath python-tencentcloud)
 optdepends=()
-makedepends=(git python-build python-installer python-setuptools python-wheel python-hatchling)
+makedepends=(python-build python-installer python-setuptools python-wheel python-hatchling)
 conflicts=('tencentcloud-cli-intl-en')
 source=(
 	"${pkgname}-${pkgver}.tar.gz"::"${url}/archive/refs/tags/${pkgver}.tar.gz"
