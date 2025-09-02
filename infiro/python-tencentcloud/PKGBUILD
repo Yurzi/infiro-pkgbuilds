@@ -9,7 +9,7 @@ url='https://github.com/TencentCloud/tencentcloud-sdk-python'
 license=('Apache-2.0')
 arch=('any')
 depends=(python python-requests python-urllib3 python-certifi)
-makedepends=(git python-build python-installer python-setuptools python-wheel)
+makedepends=(python-build python-installer python-setuptools python-wheel)
 conflicts=(tencentcloud-sdk-python)
 source=(
 	"tencentcloud-sdk-python-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
