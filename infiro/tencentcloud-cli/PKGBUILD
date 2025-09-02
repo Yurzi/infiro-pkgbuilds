@@ -14,7 +14,7 @@ optdepends=()
 makedepends=(python-build python-installer python-setuptools python-wheel python-hatchling)
 conflicts=('tencentcloud-cli-intl-en')
 source=(
-	"${pkgname}-${pkgver}.tar.gz"::"${url}/archive/refs/tags/${pkgver}.tar.gz"
+	"${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
 )
 sha256sums=('17cc423fb5f4e6f84a207a76e85f2c4aac51f4e556cdee5a7d797a6e723650b7')
 
