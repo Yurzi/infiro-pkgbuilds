@@ -2,7 +2,7 @@ maintainers:
   - github: Yurzi
     email: yurzi@foxmail.com
 
-pre_build_script: aur_pre_build(maintainers=['Yurzi'])
+pre_build_script: aur_pre_build(maintainers=['GalaxySnail'])
 post_build: aur_post_build
 
 update_on:
