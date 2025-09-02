@@ -13,11 +13,11 @@ depends=(
 	'postgresql-pgvector'
 )
 conflicts=("${_extname,,}-bin" "${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
+options=(!lto)
 makedepends=(
 	'rust' # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
 	'clang>=16' # upstream builds with clang, claims to work with gcc but does not yet
 	# 'gcc>=14' # part of base-devel and hence preferred to clang
-	'postgresql-pgvector'
 )
 _archive="${_extname}-${pkgver}"
 source=("${_archive}.tar.gz::https://github.com/tensorchord/VectorChord/archive/refs/tags/$pkgver.tar.gz")
