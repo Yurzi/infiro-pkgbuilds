@@ -13,4 +13,4 @@ post_build_script: |
 update_on:
   - source: regex
     url: https://downloads.typora.io/linux/Packages
-    regex: 'Package: typora\nVersion: ([^\s]+)\nArchitecture: amd64'
+    regex: 'Package: typora\nVersion: ([^\s]+)-\S+\nArchitecture: amd64'
