@@ -2,7 +2,7 @@
 
 pkgname='python-tencentcloud'
 pkgver=3.0.1455
-pkgrel=1
+pkgrel=2
 pkgdesc='Tencent Cloud API 3.0 SDK for Python'
 url='https://github.com/TencentCloud/tencentcloud-sdk-python'
 
