@@ -3,7 +3,7 @@
 _extname=pgvector
 pkgname=postgresql-${_extname}
 pkgver=0.8.0
-pkgrel=4
+pkgrel=5
 pkgdesc="A vector similarity search extension for PostgreSQL"
 arch=('x86_64')
 url='https://github.com/pgvector/pgvector'
