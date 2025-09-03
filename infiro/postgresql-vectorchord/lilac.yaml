@@ -17,4 +17,5 @@ update_on:
   - source: github
     github: tensorchord/VectorChord
     use_latest_release: true
-  - alias: postgresql
+  - source: alpm
+    alpm: postgresql
