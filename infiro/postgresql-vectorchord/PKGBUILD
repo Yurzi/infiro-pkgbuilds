@@ -3,7 +3,7 @@
 _extname=VectorChord
 pkgname=postgresql-${_extname,,}
 pkgver=0.5.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Scalable, fast, and disk-friendly vector search in Postgres, successor to pgvecto.rs"
 arch=('x86_64')
 url="https://github.com/tensorchord/VectorChord"
