@@ -1,0 +1,54 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=typora
+pkgver=1.11.7
+pkgrel=1
+pkgdesc="A minimal markdown editor and reader."
+arch=('x86_64')
+license=('custom:"Copyright (c) 2015 Abner Lee All Rights Reserved."')
+url="https://typora.io/"
+
+depends=('gtk3' 'nss' 'alsa-lib')
+optdepends=(
+	'noto-fonts-emoji: Or some other emoji font to see emojis'
+	'pandoc: Import/export for extra file formats')
+
+_archive="${pkgname}_${pkgver}_amd64.deb"
+source=(
+	"$pkgname.sh"
+	"${_archive}::https://downloads.typora.io/linux/${_archive}"
+)
+
+sha256sums=(
+	'4d8335350aacd1a1c109575fbe30e3b2f770dc4941e3a7512d637bfcd5782fbb'
+	'a486ce7e1a98d24b09c84251b88bf77877a923260dc226765dc6a240cca0dfac')
+
+prepare() {
+	# unpack
+	bsdtar -xf data.tar.zst -C "${srcdir}"
+	# remove change log from application comment
+	sed -i '/Change Log/d' "${srcdir}/usr/share/applications/typora.desktop"
+
+	# fix permissions
+	chmod 644 "${srcdir}/usr/share/typora/resources/packages/node-spellchecker/vendor/hunspell_dictionaries/en_US.dic"
+	chmod 644 "${srcdir}/usr/share/typora/resources/packages/node-spellchecker/vendor/hunspell_dictionaries/en_US.aff"
+	find "${srcdir}" -type d -exec chmod 755 {} \;
+}
+
+package() {
+	# install launcher script
+	install -Dm755 "${srcdir}/${pkgname}.sh" "${pkgdir}/usr/bin/${pkgname}"
+
+	# install desktop entry
+	install -Dm644 "${srcdir}/usr/share/applications/${pkgname}.desktop" -t "${pkgdir}/usr/share/applications/"
+
+	# install license to correct path
+	install -Dm644 "${srcdir}/usr/share/doc/${pkgname}/copyright" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+
+	# copy icons
+	cp -r "${srcdir}/usr/share/icons" "${pkgdir}/usr/share/"
+
+	# copy all to /opt
+	install -d "${pkgdir}/opt/${pkgname}"
+	cp -r "${srcdir}/usr/share/${pkgname}" "${pkgdir}/opt/"
+}
