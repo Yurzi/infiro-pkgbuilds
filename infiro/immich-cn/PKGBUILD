@@ -150,8 +150,8 @@ build() {
 }
 
 package_immich-cn-server() {
-	replaces=('immich')
-	conflicts=('immich')
+	replaces=('immich' 'immich-server')
+	conflicts=('immich' 'immich-server')
 
 	backup=("etc/immich.conf")
 	# options=("!strip")
