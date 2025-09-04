@@ -2,7 +2,7 @@
 
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
-pkgrel=2
+pkgrel=3
 pkgver=1.140.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
