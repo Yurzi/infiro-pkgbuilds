@@ -28,7 +28,7 @@ depends=(
 	'postgresql>=14'
 	'nodejs>=20'
 	'python312'
-	'postgresql-vectorchord>=3.0' # server/src/constants.ts
+	'postgresql-vectorchord' # server/src/constants.ts
 	'zlib'
 	'glib2'
 	'expat'
