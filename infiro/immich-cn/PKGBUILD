@@ -155,8 +155,7 @@ package_immich-cn-server() {
 
 	backup=("etc/immich.conf")
 	# options=("!strip")
-	_pkgname=immich
-	install=${_pkgname}.install
+	install=immich-server.install
 	changelog='BREAKING CHANGELOG.md'
 	optdepends=(
 		'libva-mesa-driver: GPU acceleration'
