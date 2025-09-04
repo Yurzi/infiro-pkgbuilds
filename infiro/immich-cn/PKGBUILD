@@ -1,7 +1,7 @@
 # Maintainer: yurzi <yurzi@foxmail.com>
 
 pkgbase=immich-cn
-pkgname=('immich-server' 'immich-cli')
+pkgname=('immich-cn-server' 'immich-cn-cli')
 pkgrel=2
 pkgver=1.140.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
@@ -28,7 +28,7 @@ depends=(
 	'postgresql>=14'
 	'nodejs>=20'
 	'python312'
-	'postgresql-vectorchord' # server/src/constants.ts
+	'postgresql-vectorchord-immich' # server/src/constants.ts
 	'zlib'
 	'glib2'
 	'expat'
@@ -149,13 +149,14 @@ build() {
 	sed -i "s|${srcdir}/${_archive}/machine-learning/\.venv|${_venvdir}|g" ".venv/bin/"*
 }
 
-package_immich-server() {
+package_immich-cn-server() {
 	replaces=('immich')
 	conflicts=('immich')
 
 	backup=("etc/immich.conf")
 	# options=("!strip")
-	install=${pkgname}.install
+	_pkgname=immich
+	install=${_pkgname}.install
 	changelog='BREAKING CHANGELOG.md'
 	optdepends=(
 		'libva-mesa-driver: GPU acceleration'
@@ -226,7 +227,9 @@ package_immich-server() {
 	install -Dm755 "${pkgdir}/usr/lib/immich/app/server/bin/immich-healthcheck" "${pkgdir}/usr/bin/immich-healthcheck"
 }
 
-package_immich-cli() {
+package_immich-cn-cli() {
+	replaces=('immich-cli')
+	conflicts=('immich-cli')
 	depends=('nodejs>=20')
 
 	cd "${srcdir}/${_archive}"
