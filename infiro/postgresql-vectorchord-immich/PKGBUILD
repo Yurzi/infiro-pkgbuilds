@@ -1,0 +1,43 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+_extname=VectorChord
+pkgname=postgresql-${_extname,,}-immich
+pkgver=0.4.3
+pkgrel=1
+pkgdesc="Scalable, fast, and disk-friendly vector search in Postgres, successor to pgvecto.rs (suitable for Immich)."
+arch=('x86_64')
+url="https://github.com/tensorchord/VectorChord"
+license=('AGPLv3')
+depends=(
+	'postgresql'
+	'postgresql-pgvector'
+)
+conflicts=("${_extname,,}-bin" "${_extname,,}" "postgresql-${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
+options=(!lto)
+makedepends=(
+	'rust' # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
+	'clang>=16' # upstream builds with clang, claims to work with gcc but does not yet
+	# 'gcc>=14' # part of base-devel and hence preferred to clang
+)
+_archive="${_extname}-${pkgver}"
+source=("${_archive}.tar.gz::https://github.com/tensorchord/VectorChord/archive/refs/tags/$pkgver.tar.gz")
+sha256sums=('c079edbbc5f0b069df861d460d833858a667eb2623a05e6ce9108b53abd0a2ce')
+install=info.install
+
+prepare(){
+	cd "$srcdir/$_archive"
+	# pre-download rust dependencies already in prepare()
+	cargo fetch --locked --target="$(rustc -vV | sed -n 's/host: //p')"
+}
+build() {
+	cd "$srcdir/$_archive"
+	export RUST_BACKTRACE=1 # show backtrace on error
+  	make build
+}
+
+package() {
+	cd "$srcdir/$_archive/build/raw/"
+	install -Dm 755 "./pkglibdir/vchord.so" "$pkgdir$(pg_config --pkglibdir)/vchord.so"
+  	install -d "$pkgdir$(pg_config --sharedir)/extension"
+  	install -Dm 644 ./sharedir/extension/* "$pkgdir$(pg_config --sharedir)/extension/"
+}
