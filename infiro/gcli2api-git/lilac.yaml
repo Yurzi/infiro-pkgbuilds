@@ -2,7 +2,7 @@ maintainers:
   - github: Yurzi
     email: yurzi@foxmail.com
 
-build_prefix: extra-x86_64
+build_prefix: archlinuxcn-x86_64
 
 pre_build_script: |
   update_pkgrel()
