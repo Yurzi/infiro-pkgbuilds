@@ -1,0 +1,10 @@
+# gcli2api-git.install
+
+post_install() {
+	echo "==> To enable and start the gcli2api service, run:"
+	echo "==> sudo systemctl enable --now gcli2api.service"
+}
+
+post_upgrade() {
+	post_install
+}
