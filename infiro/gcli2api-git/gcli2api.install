@@ -1,7 +1,7 @@
 # gcli2api-git.install
 
 post_install() {
-	echo "==> Example configuration files have been installed to /usr/share/gcli2api/gcli2api.conf.example."
+	echo "==> Example configuration files have been installed to /usr/share/doc/gcli2api/gcli2api.conf.example."
 	echo "==> To enable and start the gcli2api service, run:"
 	echo "==> sudo systemctl enable --now gcli2api.service"
 }
