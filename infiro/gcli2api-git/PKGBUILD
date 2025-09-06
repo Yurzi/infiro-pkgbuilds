@@ -56,6 +56,6 @@ package() {
 	# install service and conf
 	cd "${srcdir}"
 	install -Dm644 "${_pkgname}.service" "${pkgdir}/usr/lib/systemd/system/${_pkgname}.service"
-	install -Dm644 "${_pkgname}.conf" "${pkgdir}/etc/${_pkgname}.conf"
+	install -Dm644 "${_pkgname}.conf" "${pkgdir}/usr/share/doc/${_pkgname}/${_pkgname}.conf.example"
 
 }
