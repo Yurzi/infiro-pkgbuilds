@@ -2,8 +2,8 @@
 
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
-pkgrel=3
-pkgver=1.140.1
+pkgrel=1
+pkgver=1.141.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
 license=('AGPL-3.0-only')
@@ -80,7 +80,7 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 	"i18n-iso-countries.zip::http://github.com/ZingLix/immich-geodata-cn/releases/latest/download/i18n-iso-countries.zip"
 )
 
-sha256sums=('0bce7814f3a4f6aa2ee8031df260846f6445b9707df131fc23de590ebf4d862f'
+sha256sums=('689cab83e0b24b01f620f6316ec5c65c566d95357285203319bc881ad2745a59'
             '39f874f7a53755a9a2302b70113c517066ded40952d1783df3623722f8721c44'
             'SKIP'
             'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
@@ -89,8 +89,8 @@ sha256sums=('0bce7814f3a4f6aa2ee8031df260846f6445b9707df131fc23de590ebf4d862f'
             '4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
             '077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
             '614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
-            '2e44eba5248e2111116f9368b9ff59d4ff63249088edc34bef16df0d76a0d611'
-            '44e0a7a19b22823ca439bd4ffd8bb357ad2d72282d7a0163637737c060facc7c')
+            'fea574e915a69c4550b23b887f09092dd3fc85dfbb3614a0a07b76704fac6703'
+            'ea447eb892de5ee15581059e1963c01212710a22377dc81c40f6899235590b84')
 
 _installdir=/usr/lib/immich/immich-machine-learning
 _venvdir="${_installdir}/venv"
