@@ -3,7 +3,7 @@
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
 pkgrel=1
-pkgver=1.141.1
+pkgver=1.142.0
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
 license=('AGPL-3.0-only')
@@ -80,7 +80,7 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 	"i18n-iso-countries.zip::http://github.com/ZingLix/immich-geodata-cn/releases/latest/download/i18n-iso-countries.zip"
 )
 
-sha256sums=('689cab83e0b24b01f620f6316ec5c65c566d95357285203319bc881ad2745a59'
+sha256sums=('437c0caff1442ce3c57481df285b34a40e9449b530aea44d59e28d8afa76bfd5'
             '39f874f7a53755a9a2302b70113c517066ded40952d1783df3623722f8721c44'
             'SKIP'
             'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
