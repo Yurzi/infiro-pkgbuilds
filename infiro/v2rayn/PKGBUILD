@@ -1,4 +1,4 @@
-# Maintainer: yidaduizuoye <yidaduizuoye at outlook dot com>
+# Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=v2rayn
 _pkgname=v2rayN
@@ -16,30 +16,37 @@ depends=(
 )
 makedepends=(
 	'dotnet-sdk-8.0'
+	'git'
 )
-_archive="${_pkgname}-${pkgver}"
 source=(
-	"${_archive}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
+	"git+${url}.git#tag=${pkgver}"
+	"git+https://github.com/2dust/GlobalHotKeys.git"
 	"extra-source-${pkgver}.zip::${url}-core-bin/raw/refs/heads/master/v2rayN-linux-64.zip"
 	"${pkgname}.install"
 	"${_pkgname}.sh"
 	"${_pkgname}.desktop"
 )
-sha256sums=('13a6158e1dda56aad6c61a82ac35773a1dcc9baf4f533c17e0989c37c006b24e'
+sha256sums=(
+	'f487526cba6f2a093d41b0090916e529c20197e5941227eaa2295a649fe1760e'
+	'SKIP'
 	'f79ca37f5f730c9c93ff228551def7cf2654103b8091866ea4dbe1c5298220df'
 	'a99db9b70fe1f3def2d876ffb8f2ee6848ed99e912c5f3a5db40c95c49ce2790'
 	'99348ffdebf72cc76c16c95fc158c21df4788cbc85fe2bee3c08f11f6eff2d97'
-	'f68ccb83fb112e3e745efbbd9dbcfe50c4611c9cdb470854934a33ec2cd561f2')
+	'f68ccb83fb112e3e745efbbd9dbcfe50c4611c9cdb470854934a33ec2cd561f2'
+)
 conflicts=('v2rayn-bin')
 install=${pkgname}.install
 options=('!strip')
 
 prepare() {
-	cd "${srcdir}/${_archive}"
+	cd "${srcdir}/${_pkgname}"
+	git submodule init
+	git config submodule.v2rayN/GlobalHotKeys.url "${srcdir}/GlobalHotKeys"
+	git -c protocol.file.allow=always submodule update
 }
 
 build() {
-	cd "${srcdir}/${_archive}/${_pkgname}"
+	cd "${srcdir}/${_pkgname}/${_pkgname}"
 	dotnet publish ./v2rayN.Desktop/v2rayN.Desktop.csproj \
 		-p:DebugType=None \
 		--configuration Release \
@@ -49,7 +56,7 @@ build() {
 
 package() {
 	mkdir -pv "${pkgdir}/usr/lib/${_pkgname}"
-	cd "${srcdir}/${_archive}/${_pkgname}"
+	cd "${srcdir}/${_pkgname}/${_pkgname}"
 	cp -r output/* "${pkgdir}/usr/lib/${_pkgname}"
 	install -Dvm755 "${srcdir}/${_pkgname}.sh" "${pkgdir}/usr/bin/v2rayn"
 	install -Dvm644 "${srcdir}/${_pkgname}.desktop" "${pkgdir}/usr/share/applications/v2rayN.desktop"
