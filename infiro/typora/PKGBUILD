@@ -1,8 +1,8 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=typora
-pkgver=1.11.7
-pkgrel=2
+pkgver=1.12.1
+pkgrel=1
 pkgdesc="A minimal markdown editor and reader."
 arch=('x86_64')
 license=('custom:"Copyright (c) 2015 Abner Lee All Rights Reserved."')
@@ -20,7 +20,7 @@ source=(
 )
 
 sha256sums=('4d8335350aacd1a1c109575fbe30e3b2f770dc4941e3a7512d637bfcd5782fbb'
-            'a486ce7e1a98d24b09c84251b88bf77877a923260dc226765dc6a240cca0dfac')
+            'b96f101f56fa6989437aeac01fe46408cc12ab7bd2b4707ac77baef51739ba97')
 
 prepare() {
 	# unpack
