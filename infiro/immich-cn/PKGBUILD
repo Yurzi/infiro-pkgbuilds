@@ -64,39 +64,42 @@ depends=(
 	'highway'
 )
 source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/tags/v${pkgver}.tar.gz"
-	"nest-cli.json.patch"
 	"base-images::git+https://github.com/immich-app/base-images"
 	"${_name}-server.service"
 	"${_name}-machine-learning.service"
 	"${_name}.sysusers"
 	"${_name}.tmpfiles"
-	'immich.conf'
-	'nginx.immich.conf'
+	"immich.conf"
+	"nginx.immich.conf"
 	# TODO at the moment, the latest version at install will be taken
 	# mirroring approach in docker base-image, however should we implement
 	# a simple service to keep these up-to-date since they appear to be
 	# generated daily?
 	"immich-geodata-cn.zip::https://github.com/ZingLix/immich-geodata-cn/releases/latest/download/geodata_admin_2_admin_3_admin_4_full.zip"
 	"i18n-iso-countries.zip::http://github.com/ZingLix/immich-geodata-cn/releases/latest/download/i18n-iso-countries.zip"
+	"01-fix-backup-service-ts.patch"
 )
 
-sha256sums=('6a25de70355034ea32c6f6f4354a407a6c85c05700733523d767a4e07a81d6fd'
-            '39f874f7a53755a9a2302b70113c517066ded40952d1783df3623722f8721c44'
-            'SKIP'
-            'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
-            'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
-            '01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
-            '4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
-            '077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
-            '614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
-            '03f20bb97ed239ac2014d6709b4dc10fc077f64acc0208c7d1a3f3fb208cc625'
-            '159cc48b9872097edf5b0ac9bb9854cb51551b3cf3dcb2f9eacafb311fb4a35c')
+sha256sums=(
+	'6a25de70355034ea32c6f6f4354a407a6c85c05700733523d767a4e07a81d6fd'
+	'SKIP'
+	'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
+	'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
+	'01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
+	'4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
+	'077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
+	'614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
+	'e3cb980bae300457b5815c610bc5373e4f5931f5d5606a5ca297f395a27c9e81'
+	'df5c9045cb26841a4dd3f1fdcacf172b79a9d30a3f84a5a915bb9d87918fde2c'
+	'475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
 
 _installdir=/usr/lib/immich/immich-machine-learning
 _venvdir="${_installdir}/venv"
 
 prepare() {
 	cd "${srcdir}/${_archive}"
+	# patch: backup.service.ts to adapt to Archlinux postgres
+	patch -p1 -i "${srcdir}/01-fix-backup-service-ts.patch"
 	imgdate=$(grep ^'FROM ghcr.io/immich-app/base-server-prod' server/Dockerfile | cut -d: -f2 | cut -d@ -f1)
 
 	cd "${srcdir}/base-images"
