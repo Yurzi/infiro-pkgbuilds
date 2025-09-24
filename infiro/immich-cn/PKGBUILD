@@ -3,7 +3,7 @@
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
 pkgrel=1
-pkgver=1.143.0
+pkgver=1.143.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
 license=('AGPL-3.0-only')
@@ -80,7 +80,7 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 	"01-fix-backup-service-ts.patch"
 )
 
-sha256sums=('00a9efcfb3870a90b6a9291ff6f60a9833a5ca9689bb7a3289908e45a8a57b9d'
+sha256sums=('21cedcbf832124652e65655881e9abbad8348980cd400acf489f51fcf3df4c2d'
             'SKIP'
             'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
             'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
