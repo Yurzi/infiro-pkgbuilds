@@ -3,7 +3,7 @@
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
 pkgrel=1
-pkgver=2.2.0
+pkgver=2.2.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
 license=('AGPL-3.0-only')
@@ -80,17 +80,17 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 	"01-fix-backup-service-ts.patch"
 )
 
-sha256sums=('9a10c6ff35191787f6a42c79fe1ac83be950eaa2a2723eb936a132ed3b639b94'
-	'SKIP'
-	'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
-	'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
-	'01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
-	'4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
-	'077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
-	'614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
-	'f9117e72dc0e5d52939f54459277d389ce6377eb3c492dab9473b95fa2128c96'
-	'ee155944b735be15de4803ed906a687b1cc8ba5bb0983871b422f477829bc10b'
-	'475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
+sha256sums=('ebc2ee856385513e2fc0b3e69989c635cd85e8a1146e5ce465952188ad1c52c1'
+            'SKIP'
+            'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
+            'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
+            '01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
+            '4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
+            '077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
+            '614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
+            'f9117e72dc0e5d52939f54459277d389ce6377eb3c492dab9473b95fa2128c96'
+            'ee155944b735be15de4803ed906a687b1cc8ba5bb0983871b422f477829bc10b'
+            '475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
 
 _installdir=/usr/lib/immich/immich-machine-learning
 _venvdir="${_installdir}/venv"
