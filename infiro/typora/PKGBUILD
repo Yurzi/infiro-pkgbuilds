@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=typora
-pkgver=1.12.3
+pkgver=1.12.2
 pkgrel=1
 pkgdesc="A minimal markdown editor and reader."
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=(
 )
 
 sha256sums=('4d8335350aacd1a1c109575fbe30e3b2f770dc4941e3a7512d637bfcd5782fbb'
-            '1dafa523b264088fc84860336f93210d84c4b18641855c351fc9731dccfd24eb')
+            '839181e2173572986739771557e611f9850b24ecd602c962a37c978d6f4c18e9')
 
 prepare() {
 	# unpack
