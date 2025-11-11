@@ -1,7 +1,7 @@
 # Maintainer: yurzi <yurzi@foxmail.com>
 
 pkgname=v2ray-domain-list-loyalsoldier
-pkgver=202511072213
+pkgver=202511102214
 pkgrel=1
 pkgdesc="A list of domains to be used as geosites for routing purpose in Project V, with enhancements by Loyalsoldier"
 arch=('any')
@@ -14,7 +14,7 @@ source=(
     "geosite-$pkgver.dat::https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$pkgver/geosite.dat"
     )
 
-sha256sums=('ec32aa9689473a29830d58427b692872e127414fa38a9911600851bdc49c6490')
+sha256sums=('35c9ca303e1f3df47eb877521b23fcd8b150ea4b0e668f58f25a0f26dc714390')
 
 package() {
   install -Dm644 geosite-$pkgver.dat "$pkgdir"/usr/share/v2ray/geosite.dat
