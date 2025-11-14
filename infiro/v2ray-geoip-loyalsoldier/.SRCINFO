@@ -1,0 +1,13 @@
+pkgbase = v2ray-geoip-loyalsoldier
+	pkgdesc = GeoIP list for routing purpose in Project V, with enhancements by Loyalsoldier
+	pkgver = 202511132214
+	pkgrel = 1
+	url = https://github.com/Loyalsoldier/v2ray-rules-dat
+	arch = any
+	license = GPL-3.0-only
+	provides = v2ray-geoip
+	conflicts = v2ray-geoip
+	source = geoip-202511132214.dat::https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/202511132214/geoip.dat
+	sha256sums = 5523598ceff1c7eecfa2150f8bcd9294b010dac1d855d0cb90ca120aab9c2435
+
+pkgname = v2ray-geoip-loyalsoldier
