@@ -1,0 +1,22 @@
+pkgbase = python-tencentcloud
+	pkgdesc = Tencent Cloud API 3.0 SDK for Python
+	pkgver = 3.0.1485
+	pkgrel = 1
+	url = https://github.com/TencentCloud/tencentcloud-sdk-python
+	arch = any
+	license = Apache-2.0
+	makedepends = python-build
+	makedepends = python-installer
+	makedepends = python-setuptools
+	makedepends = python-wheel
+	depends = python
+	depends = python-requests
+	depends = python-urllib3
+	depends = python-certifi
+	conflicts = tencentcloud-sdk-python
+	source = tencentcloud-sdk-python-3.0.1485.tar.gz::https://github.com/TencentCloud/tencentcloud-sdk-python/archive/refs/tags/3.0.1485.tar.gz
+	source = 01-python3-imports.patch
+	sha256sums = f29a125495972fe411027af4a0d5dd47ba67726637138b9b7f5edc3dfed17718
+	sha256sums = a1ad959180ef49d428e171936ba9c25f4dba937b0588d60d47e1b44003525567
+
+pkgname = python-tencentcloud
