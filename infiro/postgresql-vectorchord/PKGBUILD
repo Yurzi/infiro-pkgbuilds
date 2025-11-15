@@ -10,12 +10,12 @@ url="https://github.com/tensorchord/VectorChord"
 license=('AGPLv3')
 depends=(
 	'postgresql'
-	'postgresql-pgvector'
+	# 'postgresql-pgvector'
 )
 conflicts=("${_extname,,}-bin" "${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
 options=(!lto)
 makedepends=(
-	'rust' # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
+	'rust'      # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
 	'clang>=16' # upstream builds with clang, claims to work with gcc but does not yet
 	# 'gcc>=14' # part of base-devel and hence preferred to clang
 )
@@ -24,7 +24,7 @@ source=("${_archive}.tar.gz::https://github.com/tensorchord/VectorChord/archive/
 sha256sums=('38e20bd299d15a9ffd6464e649f630282a26df7f1a9df3cefe729634e3e1545d')
 install=info.install
 
-prepare(){
+prepare() {
 	cd "$srcdir/$_archive"
 	# pre-download rust dependencies already in prepare()
 	cargo fetch --locked --target="$(rustc -vV | sed -n 's/host: //p')"
@@ -32,12 +32,12 @@ prepare(){
 build() {
 	cd "$srcdir/$_archive"
 	export RUST_BACKTRACE=1 # show backtrace on error
-  	make build
+	make build
 }
 
 package() {
 	cd "$srcdir/$_archive/build/raw/"
 	install -Dm 755 "./pkglibdir/vchord.so" "$pkgdir$(pg_config --pkglibdir)/vchord.so"
-  	install -d "$pkgdir$(pg_config --sharedir)/extension"
-  	install -Dm 644 ./sharedir/extension/* "$pkgdir$(pg_config --sharedir)/extension/"
+	install -d "$pkgdir$(pg_config --sharedir)/extension"
+	install -Dm 644 ./sharedir/extension/* "$pkgdir$(pg_config --sharedir)/extension/"
 }
