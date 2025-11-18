@@ -1,9 +1,9 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 _extname=VectorChord
-pkgname=postgresql-${_extname,,}
-pkgver=1.0.0
-pkgrel=2
+pkgname=postgresql-${_extname,,}-immich
+pkgver=0.5.3
+pkgrel=1
 pkgdesc="Scalable, fast, and disk-friendly vector search in Postgres, successor to pgvecto.rs"
 arch=('x86_64')
 url="https://github.com/tensorchord/VectorChord"
@@ -12,8 +12,8 @@ depends=(
 	'postgresql'
 	# 'postgresql-pgvector'
 )
-provides=("vchord.so=$pkgver")
-conflicts=("${_extname,,}-bin" "${_extname,,}" "postgresql-${_extname,,}-immich") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
+provides=("vchord.so=0.5.3")
+conflicts=("${_extname,,}-bin" "${_extname,,}" "postgresql-${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
 options=(!lto)
 makedepends=(
 	'rust'      # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
@@ -37,7 +37,7 @@ build() {
 }
 
 package() {
-	cd "$srcdir/$_archive/build/"
+	cd "$srcdir/$_archive/build/raw"
 	install -Dm 755 "./pkglibdir/vchord.so" "$pkgdir$(pg_config --pkglibdir)/vchord.so"
 	install -d "$pkgdir$(pg_config --sharedir)/extension"
 	install -Dm 644 ./sharedir/extension/* "$pkgdir$(pg_config --sharedir)/extension/"
