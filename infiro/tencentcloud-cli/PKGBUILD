@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname='tencentcloud-cli'
-pkgver=3.1.1.1
+pkgver=3.1.4.1
 pkgrel=1
 pkgdesc='Tencent Cloud API 3.0 Command Line Interface'
 url='https://github.com/TencentCloud/tencentcloud-cli'
@@ -16,7 +16,7 @@ conflicts=('tencentcloud-cli-intl-en')
 source=(
 	"${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
 )
-sha256sums=('1287328b0312f210201ca080ffeb5883b943df55728142def63ba666a80f8197')
+sha256sums=('a94e754874e69d6cb1fc42524478db71dddd4dcce07659f2876750c861c36794')
 
 build() {
 	cd "${pkgname}-${pkgver}"
