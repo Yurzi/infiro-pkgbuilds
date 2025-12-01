@@ -140,7 +140,7 @@ build() {
 
 	# build plugins
 	cd plugins
-	export MISE_TRUSTED_CONFIG_PATHS="${srcdir}/${pkgbase}-${pkgver}/plugins/mise.toml"
+	export MISE_TRUSTED_CONFIG_PATHS="${srcdir}/${_archive}/plugins/mise.toml"
 	rm ../mise.toml # otherwise asks to trust those, interrupting unattended builds
 	mise install    # --cd plugins just does the cd for you
 	mise run build
