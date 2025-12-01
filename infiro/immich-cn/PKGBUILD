@@ -81,16 +81,16 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 )
 
 sha256sums=('53ebbf1a02ab66b9789e0a847bf0c6a900890bd431e76a5c63b164130ed89066'
-            'SKIP'
-            'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
-            'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
-            '01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
-            '4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
-            '077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
-            '614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
-            '6ac852a6aa4e6a6f1bbb3f5c7f10c610b1a5c747bdc5b7e10240bdbf5f52f35e'
-            '1ab0a79ae37bf7e8531415fbbbf8d10aa396663a6065100044b9eafc92eae051'
-            '475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
+	'SKIP'
+	'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
+	'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
+	'01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
+	'4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
+	'077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
+	'614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
+	'6ac852a6aa4e6a6f1bbb3f5c7f10c610b1a5c747bdc5b7e10240bdbf5f52f35e'
+	'1ab0a79ae37bf7e8531415fbbbf8d10aa396663a6065100044b9eafc92eae051'
+	'475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
 
 _installdir=/usr/lib/immich/immich-machine-learning
 _venvdir="${_installdir}/venv"
@@ -135,7 +135,15 @@ build() {
 	# build CLI
 	pnpm install --filter @immich/cli --frozen-lockfile
 	rm cli/LICENSE # deploy would've picked this up, duplicating standard /usr/share/licenses/spdx/AGPL-3.0-only
+	pnpm --filter @immich/cli build
 	pnpm --filter @immich/cli --prod --no-optional deploy output/cli-pruned
+
+	# build plugins
+	cd plugins
+	export MISE_TRUSTED_CONFIG_PATHS="${srcdir}/${pkgbase}-${pkgver}/plugins/mise.toml"
+	rm ../mise.toml # otherwise asks to trust those, interrupting unattended builds
+	mise install    # --cd plugins just does the cd for you
+	mise run build
 
 	# build machine learning (python)
 	# from: ENV and RUN commands in machine-learning/Dockerfile
@@ -180,6 +188,11 @@ package_immich-cn-server() {
 	# install www
 	install -dm755 "${pkgdir}/usr/lib/immich/build"
 	cp -r web/build "${pkgdir}/usr/lib/immich/build/www"
+
+	# install plugins
+	install -dm755 "${pkgdir}/usr/lib/immich/build/corePlugin"
+	cp -r plugins/dist "${pkgdir}/usr/lib/immich/build/corePlugin/dist"
+	install -Dm644 plugins/manifest.json "${pkgdir}/usr/lib/immich/build/corePlugin/manifest.json"
 
 	# install machine-learning
 	# from: machine-learning/Dockerfile COPY commands
