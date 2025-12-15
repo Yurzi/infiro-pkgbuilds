@@ -2,7 +2,7 @@
 
 pkgname=gcli2api-git
 _pkgname=gcli2api
-pkgver=491.7727550
+pkgver=520.2dda5b7
 pkgrel=1
 pkgdesc="A server proxy Gemini Cli API to OpenAI compatible API"
 arch=('x86_64')
