@@ -1,6 +1,4 @@
-# Maintainer: Alex Szczuczko <alex@szc.ca>
-# Contributor: Marcelo Alaniz <malaniz@code4life.com.ar>
-# Contributor: Peter Wu <peter@lekensteyn.nl>
+# Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=nusmv
 _pkgname=NuSMV
