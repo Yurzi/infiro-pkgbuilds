@@ -1,0 +1,12 @@
+pkgbase = nuxmv
+	pkgdesc = A new symbolic model checker for the analysis of synchronous finite-state and infinite-state systems
+	pkgver = 2.1.0
+	pkgrel = 1
+	url = http://nuxmv.fbk.eu/index.html
+	arch = x86_64
+	license = custom
+	optdepends = python: for scripts in /usr/share/nuxmv/contrib/
+	source = http://nuxmv.fbk.eu/downloads/nuXmv-2.1.0-linux64.tar.xz
+	sha256sums = c7dfec43749bcb230c857efe81099b95d868b94efd9f81bccebe542a306a7c83
+
+pkgname = nuxmv
