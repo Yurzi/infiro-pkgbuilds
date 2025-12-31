@@ -1,0 +1,33 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=nuxmv
+_pkgname=nuXmv
+pkgver=2.1.0
+pkgrel=1
+pkgdesc="A new symbolic model checker for the analysis of synchronous finite-state and infinite-state systems"
+arch=('x86_64')
+url="http://nuxmv.fbk.eu/index.html"
+license=('custom')
+depends=()
+makedepends=()
+optdepends=('python: for scripts in /usr/share/nuxmv/contrib/')
+_archive=${_pkgname}-${pkgver}-linux64
+source=("http://nuxmv.fbk.eu/downloads/${_archive}.tar.xz")
+sha256sums=('c7dfec43749bcb230c857efe81099b95d868b94efd9f81bccebe542a306a7c83')
+
+package() {
+	cd "$srcdir/$_archive"
+	# install binary
+	install -Dm755 bin/nuXmv "$pkgdir/usr/bin/nuxmv"
+
+	# install scripts
+	install -d "$pkgdir/usr/share/nuxmv/"
+	cp -r share/nuxmv/* "$pkgdir/usr/share/nuxmv/"
+
+	# install doc
+	install -d "$pkgdir/usr/share/doc/$pkgname/"
+	cp -r doc/* "$pkgdir/usr/share/doc/$pkgname/"
+
+	# install license
+	install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+}
