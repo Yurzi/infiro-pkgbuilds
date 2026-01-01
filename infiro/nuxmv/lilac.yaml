@@ -11,6 +11,6 @@ post_build_script: |
   git_pkgbuild_commit()
 
 update_on:
-  source: regex
-  url: https://nuxmv.fbk.eu/download.html"
-  regex: Version\s(.+)\s\(.+\)
+  - source: regex
+    url: https://nuxmv.fbk.eu/download.html"
+    regex: Version\s(.+)\s\(.+\)
