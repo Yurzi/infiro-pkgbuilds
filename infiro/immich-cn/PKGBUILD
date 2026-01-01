@@ -57,6 +57,7 @@ depends=(
 	'perl-io-compress-brotli'
 	# added v1.120.2
 	'highway'
+	'python312'
 )
 source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/tags/v${pkgver}.tar.gz"
 	"base-images::git+https://github.com/immich-app/base-images"
