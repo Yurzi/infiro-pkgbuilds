@@ -3,7 +3,7 @@
 pkgbase=immich-cn
 pkgname=('immich-cn-server' 'immich-cn-cli')
 pkgrel=1
-pkgver=2.3.1
+pkgver=2.4.1
 pkgdesc='Self-hosted photos and videos backup tool, with cn geodata'
 url='https://github.com/immich-app/immich'
 license=('AGPL-3.0-only')
@@ -15,19 +15,14 @@ _archive=${_name}-${pkgver}
 makedepends=('git' 'pnpm' 'jq' 'uv' 'ts-node' "mise")
 # combination of server/CLI deps, see split package functions
 # for individual deps and commentary
-# PYTHON V3.12 REQUIRED
-#   Current incompatibility with arch base version of python (3.13)
-#   so depend on python312. Cannot use python=3.12 since the AUR
-#   package does not contain a provides=.
+
 # dependencies generated from base-images repository
 # https://github.com/immich-app/base-images/blob/main/server/Dockerfile
 # 1.101.0-2: liborc dep found to be not required
 depends=(
-	'bash'
 	'valkey'
 	'postgresql>=14'
 	'nodejs>=20'
-	'python312'
 	'vchord.so<=0.6.0' # server/src/constants.ts
 	'zlib'
 	'glib2'
@@ -42,14 +37,14 @@ depends=(
 	'lcms2'
 	'mimalloc'
 	'openjpeg2'
-	'openexr'
+	'openexr>=3.4.0' # sharp refuses to start rn w/ lower version; not sure where this version's from
 	'liblqr'
 	'libtool'
 	'jellyfin-ffmpeg' # maintainer advice 28/10/24
 	# need to ensure this matches sharp depend version
 	# because otherwise a local copy will be built
 	# breaking heif conversion
-	'libvips>=8.16.1'
+	'libvips>=8.17.2'
 	'openslide'
 	'poppler-glib'
 	'imagemagick'
@@ -80,17 +75,17 @@ source=("${_archive}.tar.gz::https://github.com/immich-app/immich/archive/refs/t
 	"01-fix-backup-service-ts.patch"
 )
 
-sha256sums=('20bd60862447e7e369189f9390f8e013b50101cf2fb7561ed47793bcb63c6cc8'
-            'SKIP'
-            'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
-            'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
-            '01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
-            '4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
-            '077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
-            '614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
-            'ebc17589dc406b625d47b7443fb0578a4a089fe7a59f035049de77db36fd3ebd'
-            '86889cb3d438678335a2620fbe6cd618224cc0116699bed242292155e319978f'
-            '475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
+sha256sums=('885cf36509f79fa1ed7541236b671d7eae900c80145920299be922a45a086fc5'
+	'SKIP'
+	'cafae91fd82ba8684e0e8cd30d71bf603c00f0cba9f70ef6f1612b49b6ace171'
+	'ce6fae49e23d705b8d08205d981bb217eaf55347a499a8d0492b7ed95b520cff'
+	'01707746e8718fe169b729b7b3d9e26e870bf2dbc4d1f6cdc7ed7d3839e92c0e'
+	'4ae8a73ccbef568b7841dbdfe9b9d8a76fa78db00051317b6313a6a50a66c900'
+	'077b85d692df4625300a785eed1efdc7af8fbb8e05dfa8c7d8b4053c1eb76a58'
+	'614b56dba38f9201d8a391d0f3d2cdf5571935a1ea6c5d19a74a942f18411763'
+	'c1726cfa1bf3191398e3420b1a17217c763912e599665fd62744f4c85988f249'
+	'c5b91fbd29c8e43d767260fffc098340ccc35067ab130882bd6bdb6398b1cf45'
+	'475291c45ec0a20b52f7ff927ddd7299f6f9e848e01145817066ff194cd50f07')
 
 _installdir=/usr/lib/immich/immich-machine-learning
 _venvdir="${_installdir}/venv"
