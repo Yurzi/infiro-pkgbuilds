@@ -11,6 +11,6 @@ post_build_script: |
   git_pkgbuild_commit()
 
 update_on:
-  source: htmlparser
-  url: https://nusmv.fbk.eu/downloads.html
-  xpath: /html/body/main/section/article/div/div[1]/div[2]/table/tbody[1]/tr[1]/td[1]
+  - source: htmlparser
+    url: https://nusmv.fbk.eu/downloads.html
+    xpath: /html/body/main/section/article/div/div[1]/div[2]/table/tbody[1]/tr[1]/td[1]
