@@ -3,7 +3,7 @@
 pkgname=nuxmv
 _pkgname=nuXmv
 pkgver=2.1.0
-pkgrel=1
+pkgrel=2
 pkgdesc="A new symbolic model checker for the analysis of synchronous finite-state and infinite-state systems"
 arch=('x86_64')
 url="http://nuxmv.fbk.eu/index.html"
