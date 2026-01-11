@@ -1,7 +1,7 @@
 # Maintainer: yurzi <yurzi@foxmail.com>
 
 pkgname=v2ray-geoip-loyalsoldier
-pkgver=202601062216
+pkgver=202601102214
 pkgrel=1
 pkgdesc="GeoIP list for routing purpose in Project V, with enhancements by Loyalsoldier"
 arch=('any')
@@ -14,7 +14,7 @@ source=(
     "geoip-$pkgver.dat::https://github.com/Loyalsoldier/v2ray-rules-dat/releases/download/$pkgver/geoip.dat"
     )
 
-sha256sums=('e2e9281ca52008da1af611d3198a1c5f3ba0a8a299912445164e73ac35bf6da5')
+sha256sums=('1adb0ebd3926a0cb7ca6358ff01194c09975bed48c8166e244b4ef28ae9a701e')
 
 package() {
   install -Dm644 geoip-$pkgver.dat "$pkgdir"/usr/share/v2ray/geoip.dat
