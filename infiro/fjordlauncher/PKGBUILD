@@ -27,7 +27,7 @@ depends=(
 	cmark
 )
 _archive=${_pkgname}-${pkgver}
-makedepends=(cmake extra-cmake-modules git jdk17-openjdk scdoc ghc-filesystem gamemode)
+makedepends=(cmake extra-cmake-modules git jdk17-openjdk scdoc ghc-filesystem gamemode ninja)
 optdepends=('glfw: to use system GLFW libraries'
 	'openal: to use system OpenAL libraries'
 	'visualvm: Profiling support'
