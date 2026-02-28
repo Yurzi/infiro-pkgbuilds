@@ -3,7 +3,7 @@
 _pkgname=FjordLauncher
 pkgname=fjordlauncher
 pkgver=10.0.5.0
-pkgrel=1
+pkgrel=2
 pkgdesc="Prism Launcher fork with support for alternative auth servers"
 arch=('i686' 'x86_64' 'aarch64')
 url='https://github.com/unmojang/FjordLauncher'
