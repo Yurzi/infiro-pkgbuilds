@@ -1,11 +1,23 @@
---- a/server/src/services/backup.service.ts
-+++ b/server/src/services/backup.service.ts
-@@ -113,7 +113,7 @@
-     try {
-       await new Promise<void>((resolve, reject) => {
-         const pgdump = this.processRepository.spawn(
--          `/usr/lib/postgresql/${databaseMajorVersion}/bin/pg_dumpall`,
-+          `/usr/bin/pg_dumpall`,
-           databaseParams,
-           {
-             env: {
+--- a/server/src/services/database-backup.service.ts
++++ b/server/src/services/database-backup.service.ts
+@@ -205,7 +205,7 @@
+     }
+ 
+     return {
+-      bin: `/usr/lib/postgresql/${databaseMajorVersion}/bin/${bin}`,
++      bin: `/usr/bin/${bin}`,
+       args,
+       databaseUsername,
+       databasePassword: isUrlConnection ? new URL(databaseConfig.url).password : databaseConfig.password,
+--- a/server/src/services/database-backup.service.spec.ts
++++ b/server/src/services/database-backup.service.spec.ts
+@@ -277,7 +277,7 @@
+         mocks.database.getPostgresVersion.mockResolvedValue(postgresVersion);
+         await sut.handleBackupDatabase();
+         expect(mocks.process.spawnDuplexStream).toHaveBeenCalledWith(
+-          `/usr/lib/postgresql/${expectedVersion}/bin/pg_dump`,
++          `/usr/bin/pg_dump`,
+           expect.any(Array),
+           expect.any(Object),
+         );
+
