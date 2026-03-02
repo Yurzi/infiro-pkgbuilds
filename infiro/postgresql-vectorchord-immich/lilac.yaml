@@ -12,6 +12,6 @@ post_build_script: |
 
 update_on:
   - source: manual
-    manual: 0.5.3
+    manual: 1.1.1
   - source: alpm
     alpm: postgresql
