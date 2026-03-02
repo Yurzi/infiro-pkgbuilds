@@ -11,7 +11,7 @@ license=('AGPLv3')
 depends=(
   'postgresql'
 )
-provides=("vchord.so=0.5.3")
+provides=("vchord.so=$pkgver")
 conflicts=("${_extname,,}-bin" "${_extname,,}" "postgresql-${_extname,,}") # vectorchord-bin does not use 'provides=vectorchord', requires this to resolve
 makedepends=(
   'rust'  # currently required to strictly control the toolchain as upstream seems to build with nighly versions and cannot currenty be built with stable
