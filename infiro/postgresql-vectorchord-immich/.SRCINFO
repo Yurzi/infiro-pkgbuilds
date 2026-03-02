@@ -1,0 +1,19 @@
+pkgbase = postgresql-vectorchord-immich
+	pkgdesc = Scalable, fast, and disk-friendly vector search in Postgres, successor to pgvecto.rs
+	pkgver = 1.1.1
+	pkgrel = 1
+	url = https://github.com/tensorchord/VectorChord
+	install = info.install
+	arch = x86_64
+	license = AGPLv3
+	makedepends = rust
+	makedepends = clang
+	depends = postgresql
+	provides = vchord.so=0.5.3
+	conflicts = vectorchord-bin
+	conflicts = vectorchord
+	conflicts = postgresql-vectorchord
+	source = VectorChord-1.1.1.tar.gz::https://github.com/tensorchord/VectorChord/archive/refs/tags/1.1.1.tar.gz
+	sha256sums = 38e20bd299d15a9ffd6464e649f630282a26df7f1a9df3cefe729634e3e1545d
+
+pkgname = postgresql-vectorchord-immich
