@@ -1,0 +1,32 @@
+# --- Arch Linux / makepkg build artifacts ---
+src/
+pkg/
+*.pkg.tar
+*.pkg.tar.*
+*.log
+
+# Downloaded source archives (matched against the package source cache)
+*.tar.gz
+*.tar.xz
+*.tar.bz2
+*.tar.zst
+*.zip
+*.tgz
+
+# --- AI CLI / coding assistant tools ---
+.codex
+.claude/
+.cursor/
+.windsurf/
+.aider*
+.opencode/
+.continue/
+.vscode/
+.copilot*
+.gemini/
+.roo/
+.cline/
+
+# --- OS generated files ---
+.DS_Store
+Thumbs.db
