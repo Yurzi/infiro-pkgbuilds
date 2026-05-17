@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname='opencode'
-pkgver=1.15.0
+pkgver=1.15.3
 _subver=
 options=('!debug' '!strip')
 pkgrel=1
@@ -14,8 +14,8 @@ conflicts=('opencode')
 depends=('ripgrep')
 
 source_aarch64=("${pkgname}_${pkgver}_aarch64.tar.gz::https://github.com/anomalyco/opencode/releases/download/v${pkgver}${_subver}/opencode-linux-arm64.tar.gz")
-sha256sums_aarch64=('6ec553a7803783dfc824080d03aaab20dfad701f9ae7e8c8ab250e6215dd4539')
-sha256sums_x86_64=('daa8b8b59d96cf3b0ce72285c1c3b39e06e996331ba7f162a2991cfbfe2116b4')
+sha256sums_aarch64=('4f2a3e3040c6dc6717961b1034e7ae651940c449065d316c6c6e17a4b78293da')
+sha256sums_x86_64=('f8ae8678c9bccdbaf99777f36ff2d5efe689d473384f2e94b84d6cda256d2540')
 source_x86_64=("${pkgname}_${pkgver}_x86_64.tar.gz::https://github.com/anomalyco/opencode/releases/download/v${pkgver}${_subver}/opencode-linux-x64.tar.gz")
 
 package() {
