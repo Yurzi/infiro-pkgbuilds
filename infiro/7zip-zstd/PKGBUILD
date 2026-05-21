@@ -2,7 +2,7 @@
 
 pkgname=7zip-zstd
 pkgver=25.01
-pkgrel=1
+pkgrel=2
 _pkgver=1.5.7-R4
 _srcname="7-Zip-zstd-${pkgver}-v${_pkgver}"
 pkgdesc="File archiver for extremely high compression (With Zstandard support)"
