@@ -6,7 +6,7 @@ build_prefix: extra-x86_64
 
 pre_build_script: |
   import re
-  m = re.match(r'^([^-]+)-(.*)$', _G.newver)
+  m = re.match(r'^([^-]+)-v(.*)$', _G.newver)
   if m:
     new_pkgver = m.group(1)
     new__pkgver = m.group(2)
