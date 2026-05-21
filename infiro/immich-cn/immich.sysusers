@@ -1,2 +1,0 @@
-u	immich	-	"immich user"	/var/lib/immich	/usr/bin/nologin
-m	immich	redis
