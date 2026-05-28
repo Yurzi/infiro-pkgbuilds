@@ -14,15 +14,6 @@ sudo pacman-key --lsign-key 136AC8B87D0FEFA8
 sudo pacman -Syu infiro-keyring
 ```
 
-### 2. 添加仓库
-
-在 `/etc/pacman.conf` 末尾添加：
-
-```
-[infiro]
-Server = https://repo.yurzi.net/infiro/$arch
-```
-
 ## 贡献
 
 本仓库使用 [lilac](https://github.com/archlinuxcn/lilac) 自动化构建和更新。贡献方式：
