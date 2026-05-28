@@ -1,0 +1,23 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=infiro-keyring
+pkgver=20260529
+pkgrel=1
+pkgdesc='Infiro repository PGP keyring'
+arch=('any')
+url='https://github.com/Yurzi/infiro-pkgbuilds'
+license=('GPL-3.0-or-later')
+depends=('archlinux-keyring')
+install="${pkgname}.install"
+source=('infiro.gpg'
+        'infiro-trusted'
+        'infiro-revoked')
+sha256sums=('a521486cf17cf6d75e0e9e62318c5894a7c8c1bd2bff03e60dca34f9f37f4e25'
+            '1cd0f30fec44ac4a6f53dd2a3b87d4abdeb01a8a8fb7d4d76b3eef1d54b8b54e'
+            'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
+
+package() {
+  install -Dm644 infiro.gpg     "${pkgdir}/usr/share/pacman/keyrings/infiro.gpg"
+  install -Dm644 infiro-trusted "${pkgdir}/usr/share/pacman/keyrings/infiro-trusted"
+  install -Dm644 infiro-revoked "${pkgdir}/usr/share/pacman/keyrings/infiro-revoked"
+}
