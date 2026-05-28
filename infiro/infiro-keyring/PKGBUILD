@@ -2,7 +2,7 @@
 
 pkgname=infiro-keyring
 pkgver=20260529
-pkgrel=1
+pkgrel=2
 pkgdesc='Infiro repository PGP keyring'
 arch=('any')
 url='https://github.com/Yurzi/infiro-pkgbuilds'
@@ -12,8 +12,8 @@ install="${pkgname}.install"
 source=('infiro.gpg'
         'infiro-trusted'
         'infiro-revoked')
-sha256sums=('a521486cf17cf6d75e0e9e62318c5894a7c8c1bd2bff03e60dca34f9f37f4e25'
-            '1cd0f30fec44ac4a6f53dd2a3b87d4abdeb01a8a8fb7d4d76b3eef1d54b8b54e'
+sha256sums=('37b605fdcf38ad3743856794ded301ce94c4cfe56de5b89027c147b524cef7b0'
+            '6c31dfc2bba92e8bc1d24cfeccc97f5c43be6c2e4fab1c744d5edc4e344c4b85'
             'e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855')
 
 package() {
