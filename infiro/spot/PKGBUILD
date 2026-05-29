@@ -20,21 +20,16 @@ sha256sums=('65013a2edf3f314854d7619888145f52c8dd36bfd27894d9db9b272d9a16ce4b')
 build() {
   cd "${pkgname}-${pkgver}"
 
-  # 标准 Autotools 构建流程
-  # --disable-static: 仅构建动态库 (Arch Linux 推荐)
-  # --enable-python: 强制启用 Python 绑定构建
   ./configure \
     --prefix=/usr \
     --disable-static \
     --enable-python
 
-  # 使用多核编译
   make
 }
 
 check() {
   cd "${pkgname}-${pkgver}"
-  # 运行测试套件以确保构建正确 (构建时间较长，不想跑测试可注释掉)
   make check
 }
 
