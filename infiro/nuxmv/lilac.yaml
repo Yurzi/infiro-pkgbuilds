@@ -12,4 +12,4 @@ post_build_script: |
 update_on:
   - source: regex
     url: https://nuxmv.fbk.eu/download.html
-    regex: Version\s(.+)\s\(.+\)
+    regex: 'Version\s(.+)\s\(.+\)'

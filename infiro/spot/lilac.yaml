@@ -12,4 +12,4 @@ post_build_script: |
 update_on:
   - source: regex
     url: https://www.lre.epita.fr/dload/spot/
-    regex: spot-(\d+\.\d+\.\d+)\.tar\.gz
+    regex: 'spot-(\d+\.\d+\.\d+)\.tar\.gz'
