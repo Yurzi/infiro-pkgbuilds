@@ -3,7 +3,7 @@
 _pkgname=FjordLauncher
 pkgname=fjordlauncher
 pkgver=11.0.2.0
-pkgrel=1
+pkgrel=2
 _archive=${_pkgname}-${pkgver}
 pkgdesc="Prism Launcher fork with support for alternative auth servers"
 arch=('i686' 'x86_64' 'aarch64')
@@ -54,10 +54,10 @@ source=(
   "01-allow-gcc16-sfinae-incomplete.patch"
 )
 b2sums=('282330968402009682a488870eb29a23f7f82235797f0b6ae3247ba36abb1734975031c38fd24cf713d86e451b9eb0841a4e77ec1cab63eed4bfb73ff9a8baec'
-  'be4289832af95b1cd6e721dc16b84a034533de9718d9b43a49bd08dd6fe4e28eaa15228bfb311867b18fddbda1c9fc4c91f04c6d5c1a3bcc39aaa5161425e3ba'
-  '356248a6b86f06d260e0920b49d34034f79f9bc504c7fdc1849d929d2ff9b169e693a8269a2c0b34656b3802970d9b8be41a92b35177eaa3c4ccc89a702f5c9d'
-  'b35c447cd9223e096a2bb75e0741a7d0a3a1606af54c957e4f276f4e6861a9b3f06ae1d646137e8d2f24ba2238c9967c76eff8cc631a68d7e48e376056982cc6'
-  'd6d16ade8afc5a1e76f93d94aa7fd6d79013abeacb6c189f1f3a77ecdf3eeda85a833597f2e3e6b693740d6fd8e840289dfccbfa27fc88b0c0242de9cbce033d')
+        'be4289832af95b1cd6e721dc16b84a034533de9718d9b43a49bd08dd6fe4e28eaa15228bfb311867b18fddbda1c9fc4c91f04c6d5c1a3bcc39aaa5161425e3ba'
+        '356248a6b86f06d260e0920b49d34034f79f9bc504c7fdc1849d929d2ff9b169e693a8269a2c0b34656b3802970d9b8be41a92b35177eaa3c4ccc89a702f5c9d'
+        'b35c447cd9223e096a2bb75e0741a7d0a3a1606af54c957e4f276f4e6861a9b3f06ae1d646137e8d2f24ba2238c9967c76eff8cc631a68d7e48e376056982cc6'
+        'd6d16ade8afc5a1e76f93d94aa7fd6d79013abeacb6c189f1f3a77ecdf3eeda85a833597f2e3e6b693740d6fd8e840289dfccbfa27fc88b0c0242de9cbce033d')
 
 prepare() {
   patch -d "${_archive}" -Np1 <"01-allow-gcc16-sfinae-incomplete.patch"
