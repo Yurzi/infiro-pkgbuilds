@@ -1,0 +1,15 @@
+Description: keep -Werror but allow GCC 16's new -Wsfinae-incomplete diagnostic
+ GCC 16 emits -Wsfinae-incomplete for Qt6 QObject-derived classes used as
+ incomplete types in qmetatype.h's SFINAE checks. Upstream builds with an
+ unconditional -Werror, which turns this new warning into a hard error.
+ Demote just this diagnostic back to a warning so the rest of -Werror stays.
+--- a/launcher/CMakeLists.txt
++++ b/launcher/CMakeLists.txt
+@@ -1707,7 +1707,7 @@ foreach(target ${Launcher_TARGETS})
+     if (CMAKE_CXX_COMPILER_FRONTEND_VARIANT STREQUAL "MSVC")
+         target_compile_options(${target} PRIVATE /W4 /WX /permissive-)
+     else()
+-        target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic -Werror)
++        target_compile_options(${target} PRIVATE -Wall -Wextra -Wpedantic -Werror -Wno-error=sfinae-incomplete)
+     endif()
+ endforeach()
