@@ -19,6 +19,7 @@ The repository root is primarily composed of package directories, for example:
 ```text
 .
 ├── AGENTS.md
+├── lilac-yaml-schema.yaml
 ├── opencode/
 │   ├── PKGBUILD
 │   └── lilac.yaml
@@ -40,6 +41,7 @@ Common file roles:
 
 - `PKGBUILD`: package metadata, dependencies, sources, build/package functions.
 - `lilac.yaml`: `lilac` update rules, repo dependencies, pre/post build hooks.
+- `lilac-yaml-schema.yaml`: JSON Schema defining all valid fields and types for `lilac.yaml`.
 - `*.patch`: upstream fixes or packaging-specific patches.
 - `*.install`: pacman install scripts.
 - `*.service`, `*.sysusers`, `*.tmpfiles`, `*.conf`: system integration files.
@@ -118,8 +120,11 @@ update_on:
     use_latest_tag: true
 ```
 
+For the full set of supported fields and their types, refer to the `lilac-yaml-schema.yaml` at the repository root.
+
 Agents should follow these rules:
 
+- Consult `lilac-yaml-schema.yaml` for available fields, their accepted values, and constraints when writing or modifying a `lilac.yaml`.
 - Reuse existing repository patterns instead of inventing a new `lilac.yaml` style.
 - Use `repo_depends` when a package depends on another package from this repository.
 - Consider `lilac_throttle` for upstreams that update too frequently.
