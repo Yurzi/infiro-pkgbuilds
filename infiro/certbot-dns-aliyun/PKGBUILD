@@ -1,0 +1,24 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=certbot-dns-aliyun
+pkgver=2.0.0
+pkgrel=1
+pkgdesc='Aliyun DNS Authenticator plugin for Certbot'
+url='https://github.com/tengattack/certbot-dns-aliyun'
+license=('Apache-2.0')
+arch=('any')
+depends=(certbot python python-acme python-requests)
+makedepends=(python-build python-installer python-setuptools python-wheel)
+source=("https://files.pythonhosted.org/packages/source/${pkgname::1}/${pkgname}/${pkgname}-${pkgver}.tar.gz")
+sha256sums=('2acf1dd5595609adc1fa2eb2734a2823d75ba2a47453af13688d8dda37dd3c0b')
+
+build() {
+	cd "${pkgname}-${pkgver}"
+	python -m build --wheel --no-isolation
+}
+
+package() {
+	cd "${pkgname}-${pkgver}"
+	python -m installer --destdir="${pkgdir}" dist/*.whl
+	install -Dm644 LICENSE.txt "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
