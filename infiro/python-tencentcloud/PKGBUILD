@@ -12,29 +12,22 @@ depends=(python python-requests python-urllib3 python-certifi)
 makedepends=(python-build python-installer python-setuptools python-wheel)
 conflicts=(tencentcloud-sdk-python)
 source=(
-	"tencentcloud-sdk-python-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
-	'01-python3-imports.patch'
+  "tencentcloud-sdk-python-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
 )
-sha256sums=('bbaf585a3399b449ffa313cf77714b1b42e2ddc70f5c1d10f9d21d2037e383cc'
-            'a1ad959180ef49d428e171936ba9c25f4dba937b0588d60d47e1b44003525567')
-
-prepare() {
-	cd "tencentcloud-sdk-python-${pkgver}"
-	patch -Np1 -i ../01-python3-imports.patch
-}
+sha256sums=('bbaf585a3399b449ffa313cf77714b1b42e2ddc70f5c1d10f9d21d2037e383cc')
 
 build() {
-	cd "tencentcloud-sdk-python-${pkgver}"
-	python -m build --wheel --no-isolation
+  cd "tencentcloud-sdk-python-${pkgver}"
+  python -m build --wheel --no-isolation
 }
 
 check() {
-	cd "tencentcloud-sdk-python-${pkgver}"
-	PYTHONPATH=${pkgdir}/src python -c "import tencentcloud"
+  cd "tencentcloud-sdk-python-${pkgver}"
+  PYTHONPATH=${pkgdir}/src python -c "import tencentcloud"
 }
 
 package() {
-	cd "tencentcloud-sdk-python-${pkgver}"
-	python -m installer --destdir="${pkgdir}" dist/*.whl
-	install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  cd "tencentcloud-sdk-python-${pkgver}"
+  python -m installer --destdir="${pkgdir}" dist/*.whl
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
 }
