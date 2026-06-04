@@ -139,7 +139,22 @@ When editing `PKGBUILD`, an agent should:
 - Never leave temporary debug commands, personal paths, or accidental local assumptions in the file.
 - Add short comments only when they explain a non-obvious packaging constraint.
 
-## 7. AI Workflow
+## 7. Arch Linux Packaging References
+
+When packaging questions are unclear, prefer the official Arch Linux documentation and Arch Wiki pages below:
+
+- Arch package guidelines: <https://wiki.archlinux.org/title/Arch_package_guidelines>
+- PKGBUILD reference: <https://man.archlinux.org/man/PKGBUILD.5>
+- makepkg reference: <https://man.archlinux.org/man/makepkg.8>
+- Creating packages: <https://wiki.archlinux.org/title/Creating_packages>
+- VCS package guidelines: <https://wiki.archlinux.org/title/VCS_package_guidelines>
+- Package versioning guidelines: <https://wiki.archlinux.org/title/PKGBUILD#pkgver>
+- namcap package checking: <https://wiki.archlinux.org/title/Namcap>
+- systemd packaging guidelines: <https://wiki.archlinux.org/title/Systemd#Writing_unit_files>
+
+Use these references to resolve questions about package metadata, dependency arrays, source handling, checksums, VCS packages, install paths, systemd integration, and validation commands.
+
+## 8. AI Workflow
 
 Agents should normally work in this order:
 
@@ -160,7 +175,7 @@ Agents should normally work in this order:
 
 If validation was not run, the final report must say so explicitly.
 
-## 8. Commit Scope
+## 9. Commit Scope
 
 Commits should stay small and single-purpose.
 
@@ -169,7 +184,7 @@ Commits should stay small and single-purpose.
 - Keep repository policy or documentation changes separate from package fixes when practical.
 - Keep automatic version bumps separate from manual packaging fixes when practical.
 
-## 9. Commit Message Format
+## 10. Commit Message Format
 
 The existing history uses this package-level format:
 
@@ -220,7 +235,7 @@ For automatic updates triggered by `lilac`, keep the established pattern:
 <pkgdir>: auto updated to <version-release>
 ```
 
-## 10. Version Update Wording
+## 11. Version Update Wording
 
 Recommended subject wording:
 
@@ -245,7 +260,7 @@ Avoid vague subjects such as:
 - `try fix`
 - `temp`
 
-## 11. Things Agents Must Not Do
+## 12. Things Agents Must Not Do
 
 Agents must not:
 
@@ -256,7 +271,7 @@ Agents must not:
 - Claim validation happened when it did not
 - Change source URLs, checksums, or release tracking rules without verifying the intended behavior
 
-## 12. Delivery Expectations
+## 13. Delivery Expectations
 
 When finishing a task, the agent should clearly report:
 
