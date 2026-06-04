@@ -2,7 +2,7 @@
 
 pkgname=certbot-dns-aliyun
 pkgver=2.0.0
-pkgrel=2
+pkgrel=3
 pkgdesc='Aliyun DNS Authenticator plugin for Certbot'
 url='https://github.com/tengattack/certbot-dns-aliyun'
 license=('Apache-2.0')
