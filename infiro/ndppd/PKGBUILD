@@ -4,7 +4,7 @@
 _pkgname=ndppd
 pkgname=ndppd
 pkgver=0.2.6
-pkgrel=1
+pkgrel=2
 pkgdesc="IPv6 NDP proxy daemon"
 arch=('x86_64')
 url="https://github.com/DanielAdolfsson/ndppd"
