@@ -206,6 +206,7 @@ Preferred formats:
 
 ```text
 <pkgdir>: <change summary>
+fix(<pkgdir>): <change summary>
 repo: <change summary>
 docs: <change summary>
 ci: <change summary>
@@ -216,12 +217,14 @@ Rules:
 - Use the repository directory name as the scope, not the upstream project name.
 - Write the summary in English.
 - Keep the subject concise and specific.
-- Match the repository's existing lowercase, colon-based style.
+- Use the `<pkgdir>: <summary>` colon style for adds, updates, and `lilac` auto-updates.
+- Use the conventional-commit `fix(<pkgdir>): <summary>` style for bug, build, or dependency fixes to a single package, matching the existing history.
 
 Examples:
 
 ```text
-immich-cn: fix machine-learning runtime path
+fix(immich-cn): pin machine-learning runtime path
+fix(fjordlauncher): fix build error: -Werror=sfinae-incomplete
 java-openjfx: refresh patch for jdk25
 tencentcloud-cli: add repo_depends on python-tencentcloud
 opencode: update download URL pattern
@@ -247,11 +250,11 @@ Recommended subject wording:
   - `<pkgdir>: rebuild for ...`
   - `<pkgdir>: bump pkgrel for ...`
 - Build fix:
-  - `<pkgdir>: fix build with ...`
+  - `fix(<pkgdir>): fix build with ...`
 - Dependency fix:
-  - `<pkgdir>: fix depends`
-  - `<pkgdir>: add missing optdepends`
-  - `<pkgdir>: drop unused makedepends`
+  - `fix(<pkgdir>): fix depends`
+  - `fix(<pkgdir>): add missing optdepends`
+  - `fix(<pkgdir>): drop unused makedepends`
 
 Avoid vague subjects such as:
 
