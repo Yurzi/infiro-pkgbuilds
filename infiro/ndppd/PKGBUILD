@@ -12,20 +12,17 @@ license=('GPL-3.0-or-later')
 depends=('glibc' 'libgcc' 'libstdc++')
 backup=('etc/ndppd.conf')
 source=("${_pkgname}-${pkgver}.tar.gz::https://github.com/DanielAdolfsson/ndppd/archive/${pkgver}.tar.gz"
-        '01-fix-service-paths.patch')
+        '01-fix-service-paths.patch'
+        '02-fix-version.patch')
 sha256sums=('969d438462e0c65a8c9060d8d263c5c47ba8145fb9aaa663864bbad11ad7eb7a'
-            '4c5c3c500cd640f9e0199373fd7754d7a19acef351913b24a84a1f9671942272')
+            '4c5c3c500cd640f9e0199373fd7754d7a19acef351913b24a84a1f9671942272'
+            '4a902961e6657c7fd8fee5f0e9da6fa9414414eada8139987fa7d3716af2c01c')
 
 prepare() {
   cd "${_pkgname}-${pkgver}"
 
   patch -Np1 -i "${srcdir}/01-fix-service-paths.patch"
-
-  # Upstream forgot to bump NDPPD_VERSION in src/ndppd.h (it still reads 0.2.4),
-  # so fix it to the real version to keep `ndppd --version` correct.
-  sed -r \
-    -e 's/^(#define NDPPD_VERSION +).*/\1"'"$pkgver"'"/' \
-    -i src/ndppd.h
+  patch -Np1 -i "${srcdir}/02-fix-version.patch"
 }
 
 build() {
