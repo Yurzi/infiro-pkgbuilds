@@ -8,8 +8,8 @@ url='https://github.com/Col-E/Recaf'
 license=('MIT')
 arch=('any')
 
-depends=('java-environment>=22' 'java-openjfx>=24' 'ttf-font')
-makedepends=('jdk-openjdk>=22' 'gradle')
+depends=('java-environment>=25' 'java-openjfx>=24' 'ttf-font')
+makedepends=('jdk25-openjdk' 'gradle')
 
 conflicts=("$pkgname-bin" "$pkgname-git")
 
@@ -28,9 +28,12 @@ sha256sums=('ef3dc4884802173816ac104d61f56e58ff86d2f094cf369385795a2e6d569478'
 build() {
   cd "$srcdir/Recaf-$pkgver-alpha"
 
+  # Recaf's Gradle build selects the JDK via a toolchain (languageVersion=$TARGET_VERSION,
+  # default 22) and won't auto-download a missing JDK in the chroot, so the matching JDK
+  # must be installed and pointed at explicitly. Build against the JDK 25 LTS.
   export TARGET_VERSION=25
 
-  JAVA_HOME="/usr/lib/jvm/default-runtime" /usr/bin/gradle assemble -x compileTestJava -Dskip_jfx_bundle=true
+  JAVA_HOME="/usr/lib/jvm/java-25-openjdk" /usr/bin/gradle assemble -x compileTestJava -Dskip_jfx_bundle=true
 }
 
 package() {
