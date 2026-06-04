@@ -1,0 +1,47 @@
+maintainers:
+  - github: Yurzi
+
+build_prefix: extra-x86_64
+
+pre_build_script: |
+  import re, json, urllib.request
+
+  # Azul exposes per-build metadata (filename + sha256) via its API; resolve the
+  # exact build for the version nvchecker found so we can update the source line
+  # and checksum without downloading the ~300 MB archive.
+  base = 'https://api.azul.com/metadata/v1/zulu/packages/'
+  query = ('?os=linux&arch=x64&archive_type=tar.gz&java_package_type=jdk'
+           '&javafx_bundled=true&release_status=ga&availability_types=CA'
+           '&latest=true&page_size=1000')
+  with urllib.request.urlopen(base + query) as r:
+      pkgs = json.load(r)
+
+  def _jv(p):
+      return '.'.join(str(x) for x in p['java_version'])
+
+  pkg = next(p for p in pkgs if _jv(p) == _G.newver and p['name'].endswith('linux_x64.tar.gz'))
+  with urllib.request.urlopen(base + pkg['package_uuid']) as r:
+      detail = json.load(r)
+
+  name = detail['name']
+  zulu_build = re.search(r'^zulu(.+?-ca-fx)-jdk', name).group(1)
+  java_ver = re.search(r'-jdk(\d+)\.', name).group(1)
+
+  with open('PKGBUILD') as f:
+      content = f.read()
+  content = re.sub(r'^_java_ver=.*$', f'_java_ver={java_ver}', content, flags=re.M)
+  content = re.sub(r'^_zulu_build=.*$', f'_zulu_build={zulu_build}', content, flags=re.M)
+  content = re.sub(r"^sha256sums_x86_64=\(.*\)$",
+                   f"sha256sums_x86_64=('{detail['sha256_hash']}')", content, flags=re.M)
+  with open('PKGBUILD', 'w') as f:
+      f.write(content)
+
+  update_pkgver_and_pkgrel(_G.newver, updpkgsums=False)
+
+post_build_script: |
+  git_pkgbuild_commit()
+
+update_on:
+  - source: regex
+    url: "https://api.azul.com/metadata/v1/zulu/packages/?java_version=11&os=linux&arch=x64&archive_type=tar.gz&java_package_type=jdk&javafx_bundled=true&release_status=ga&availability_types=CA&latest=true&page_size=1"
+    regex: 'jdk(\d+\.\d+\.\d+)-linux_x64'
