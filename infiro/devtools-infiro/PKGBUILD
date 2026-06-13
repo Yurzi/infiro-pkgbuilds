@@ -2,7 +2,7 @@
 
 pkgname=devtools-infiro
 pkgver=1
-pkgrel=1
+pkgrel=2
 pkgdesc='Tools for building packages against the infiro repository'
 arch=('any')
 url='https://github.com/Yurzi/infiro-pkgbuilds'
