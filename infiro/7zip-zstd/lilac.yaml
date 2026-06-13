@@ -12,13 +12,13 @@ pre_build_script: |
   else:
     raise ValueError(f'Unexpected version format: {_G.newver}')
 
-  update_pkgver_and_pkgrel(new_pkgver)
-
   with open('PKGBUILD', 'r') as f:
     content = f.read()
   content = re.sub(r'^_pkgver=.*$', f'_pkgver={new__pkgver}', content, flags=re.MULTILINE)
   with open('PKGBUILD', 'w') as f:
     f.write(content)
+
+  update_pkgver_and_pkgrel(new_pkgver)
 
 post_build_script: |
   git_pkgbuild_commit()
