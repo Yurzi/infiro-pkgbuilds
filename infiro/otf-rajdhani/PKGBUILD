@@ -1,0 +1,16 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=otf-rajdhani
+pkgver=2.000
+pkgrel=1
+pkgdesc="An open source Devanagari + Latin display typeface"
+arch=('any')
+url="https://github.com/itfoundry/rajdhani"
+license=('unknown')
+source=("${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/v${pkgver}.tar.gz")
+sha256sums=('9bc27cf05a901e9ce2e9d3fc459d8f7064cbf1cc7a7ade782c09cdbf0ffb75f3')
+
+package() {
+  cd "${srcdir}/rajdhani-${pkgver}"
+  install -Dm644 build/*.otf -t "${pkgdir}/usr/share/fonts/OTF"
+}
