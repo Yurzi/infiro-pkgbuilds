@@ -2,7 +2,7 @@
 
 pkgname=otf-rajdhani
 pkgver=2.000
-pkgrel=1
+pkgrel=2
 pkgdesc="An open source Devanagari + Latin display typeface"
 arch=('any')
 url="https://github.com/itfoundry/rajdhani"
