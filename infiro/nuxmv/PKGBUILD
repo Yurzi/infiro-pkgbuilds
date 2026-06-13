@@ -3,31 +3,60 @@
 pkgname=nuxmv
 _pkgname=nuXmv
 pkgver=2.2.0
-pkgrel=0
+pkgrel=1
 pkgdesc="A new symbolic model checker for the analysis of synchronous finite-state and infinite-state systems"
 arch=('x86_64')
 url="http://nuxmv.fbk.eu/index.html"
-license=('custom')
-depends=()
+license=('LicenseRef-custom')
+depends=('glibc' 'gcc-libs')
 makedepends=()
 optdepends=('python: for scripts in /usr/share/nuxmv/contrib/')
 _archive=${_pkgname}-${pkgver}-linux64
 source=("https://nuxmv.fbk.eu/downloads/${pkgver}/${_archive}.tar.xz")
 sha256sums=('a495d6de6bb8c95dc9c5ad3368833a897ac2f14841c18624f0e10cbdf28da259')
 
+# Upstream ships a relocatable tree under usr/local/ that bundles its own
+# shared libraries (libicu70, libedit.so.2, libxml2.so.2, libnuxmv.so, ...).
+# Those bundled libs are installed into a private directory and reached via a
+# wrapper that prepends LD_LIBRARY_PATH. The bundled glibc (libc.so.6 /
+# libm.so.6) is intentionally dropped: loading it under Arch's newer ld.so
+# breaks with GLIBC version errors, while the system glibc works fine.
+_libdir=usr/lib/nuxmv
+_prefix=usr/local
+
 package() {
   cd "$srcdir/$_archive"
-  # install binary
-  install -Dm755 bin/nuXmv "$pkgdir/usr/bin/nuxmv"
 
-  # install scripts
-  install -d "$pkgdir/usr/share/nuxmv/"
-  cp -r share/nuxmv/* "$pkgdir/usr/share/nuxmv/"
+  # bundled runtime libraries (drop the glibc core, use the system one)
+  install -d "$pkgdir/$_libdir"
+  for _lib in "$_prefix"/lib/x86_64-linux-gnu/*; do
+    case "${_lib##*/}" in
+      libc.so.6|libm.so.6) continue ;;
+    esac
+    install -Dm644 "$_lib" "$pkgdir/$_libdir/${_lib##*/}"
+  done
 
-  # install doc
-  install -d "$pkgdir/usr/share/doc/$pkgname/"
-  cp -r doc/* "$pkgdir/usr/share/doc/$pkgname/"
+  # actual binary, kept private and reached through the wrapper
+  install -Dm755 "$_prefix/bin/nuXmv" "$pkgdir/$_libdir/nuXmv"
 
-  # install license
+  # wrapper exposed on PATH
+  install -d "$pkgdir/usr/bin"
+  cat > "$pkgdir/usr/bin/nuxmv" <<EOF
+#!/bin/sh
+export LD_LIBRARY_PATH="/$_libdir\${LD_LIBRARY_PATH:+:\$LD_LIBRARY_PATH}"
+exec "/$_libdir/nuXmv" "\$@"
+EOF
+  chmod 755 "$pkgdir/usr/bin/nuxmv"
+
+  # data files (contrib scripts, examples, master.nuxmvrc)
+  install -d "$pkgdir/usr/share/nuxmv"
+  cp -r "$_prefix"/share/nuxmv/* "$pkgdir/usr/share/nuxmv/"
+
+  # documentation (upstream ships some empty dirs, e.g. doc/sdd)
+  install -d "$pkgdir/usr/share/doc/$pkgname"
+  cp -r "$_prefix"/doc/* "$pkgdir/usr/share/doc/$pkgname/"
+  find "$pkgdir/usr/share/doc/$pkgname" -type d -empty -delete
+
+  # license
   install -Dm644 LICENSE.txt "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
 }
