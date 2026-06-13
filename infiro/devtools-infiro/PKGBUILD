@@ -1,0 +1,33 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=devtools-infiro
+pkgver=1
+pkgrel=1
+pkgdesc='Tools for building packages against the infiro repository'
+arch=('any')
+url='https://github.com/Yurzi/infiro-pkgbuilds'
+license=('GPL-3.0-or-later')
+depends=('devtools')
+source=('infiro.conf'
+        'multilib-infiro.conf')
+sha256sums=('86b8d4a0fb9ac452703001c20a37610488d9a262d1945e5768b8f7189dd14be7'
+            '98c2668e3549c33c13348343dd9b8268feecae8f0d27f7b54fbf9808c1f7aaa4')
+
+package() {
+  # pacman configs for the infiro build chroots: [infiro] + [archlinuxcn] +
+  # official repos. devtools' archbuild resolves them by the build command name.
+  install -Dm644 infiro.conf "${pkgdir}/usr/share/devtools/pacman.conf.d/infiro.conf"
+  install -Dm644 multilib-infiro.conf "${pkgdir}/usr/share/devtools/pacman.conf.d/multilib-infiro.conf"
+
+  install -d "${pkgdir}/usr/bin"
+
+  # `infiro-x86_64-build` -> archbuild parses repo=infiro, arch=x86_64,
+  # loading pacman.conf.d/infiro.conf (no multilib).
+  ln -s archbuild "${pkgdir}/usr/bin/infiro-x86_64-build"
+
+  # `multilib-infiro-build` -> the leading "multilib" makes archbuild force
+  # x86_64, preinstall multilib-devel, and load multilib-infiro.conf.
+  ln -s archbuild "${pkgdir}/usr/bin/multilib-infiro-build"
+}
+
+# vim: ts=2 sw=2 et:
