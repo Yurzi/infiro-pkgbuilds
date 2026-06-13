@@ -143,6 +143,9 @@ When editing `PKGBUILD`, an agent should:
 - For split packages, verify that `package_*()` functions, package names, dependency arrays, `conflicts`, and `replaces` remain aligned.
 - Never leave temporary debug commands, personal paths, or accidental local assumptions in the file.
 - Add short comments only when they explain a non-obvious packaging constraint.
+- Use valid SPDX license identifiers in `license=()`. See <https://spdx.org/licenses/> for the full list. Common examples:
+  - `GPL-3.0-only`, `MIT`, `Apache-2.0`, `OFL-1.1`, `BSD-2-Clause`
+  - For custom or non-SPDX licenses, prefix with `LicenseRef-` (e.g. `LicenseRef-custom`).
 
 ## 7. Arch Linux Packaging References
 
