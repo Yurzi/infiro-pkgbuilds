@@ -2,7 +2,7 @@
 
 pkgname=codexbar-cli
 pkgver=0.37.2
-pkgrel=0
+pkgrel=1
 pkgdesc='AI coding provider usage tracker CLI'
 arch=('x86_64')
 url='https://github.com/steipete/CodexBar'
@@ -21,7 +21,7 @@ source=(
   "CodexBarCLI-v${pkgver}-linux-x86_64.tar.gz::${url}/releases/download/v${pkgver}/CodexBarCLI-v${pkgver}-linux-x86_64.tar.gz"
 )
 sha256sums=('14293556b79940745123d0160c71d27ed0e9fe9b8a848093f3ed78f4853caafe'
-  '778de86faff23d1f1f2bf395fedc1c6b271c57fc0dbd079d5a2b004a9b0ba796')
+            '778de86faff23d1f1f2bf395fedc1c6b271c57fc0dbd079d5a2b004a9b0ba796')
 
 package() {
   # Binary crashes when argv[0] has no directory component (Swift Foundation
