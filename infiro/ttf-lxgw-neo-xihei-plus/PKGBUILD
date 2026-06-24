@@ -2,7 +2,7 @@
 
 pkgname=ttf-lxgw-neo-xihei-plus
 pkgver=1.303
-pkgrel=1
+pkgrel=2
 pkgdesc="「霞鹜新晰黑＋ / LXGW Neo XiHei Plus」，在「霞鹜新晰黑」基础上补全扩展 A 区所有汉字，以使字库达到 GB 18030-2022 实现级别 2 的收字范围。"
 arch=('any')
 url="https://github.com/lxgw/LxgwNeoXiHei"
