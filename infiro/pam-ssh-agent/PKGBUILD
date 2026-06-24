@@ -2,7 +2,7 @@
 
 pkgname=pam-ssh-agent
 pkgver=0.9.7
-pkgrel=1
+pkgrel=2
 pkgdesc='PAM module for ssh-agent based authentication'
 arch=('x86_64')
 url='https://crates.io/crates/pam-ssh-agent'
