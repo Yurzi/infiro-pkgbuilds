@@ -1,0 +1,38 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=pam-ssh-agent
+pkgver=0.9.7
+pkgrel=1
+pkgdesc='PAM module for ssh-agent based authentication'
+arch=('x86_64')
+url='https://crates.io/crates/pam-ssh-agent'
+license=('MIT')
+makedepends=('cargo')
+depends=('pam' 'sudo')
+source=("$pkgname-$pkgver.tar.gz::https://static.crates.io/crates/$pkgname/$pkgname-$pkgver.crate")
+sha256sums=('f5f620cc49494956a805f4e9b54e13464b8d71b7d6745c04d738641cd7e20a1e')
+
+prepare() {
+  export RUSTUP_TOOLCHAIN=stable
+  cd $pkgname-$pkgver
+  cargo fetch --locked --target "$(rustc -vV | sed -n 's/host: //p')"
+}
+
+build() {
+  export RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target
+  cd $pkgname-$pkgver
+  cargo build --frozen --release --all-features
+}
+
+check() {
+  export RUSTUP_TOOLCHAIN=stable
+  cd $pkgname-$pkgver
+  cargo test --frozen --all-features
+}
+
+package() {
+  cd $pkgname-$pkgver
+  install -Dm755 target/release/libpam_ssh_agent.so -T "$pkgdir/usr/lib/security/pam_ssh_agent.so"
+  install -Dm644 README.md -t "$pkgdir/usr/share/doc/$pkgname"
+  install -Dm644 LICENSE-MIT -t "$pkgdir/usr/share/licenses/$pkgname"
+}
