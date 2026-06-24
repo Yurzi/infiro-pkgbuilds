@@ -21,13 +21,16 @@ prepare() {
 build() {
   export RUSTUP_TOOLCHAIN=stable CARGO_TARGET_DIR=target
   cd $pkgname-$pkgver
-  cargo build --frozen --release --all-features
+  # Do not use --all-features: it enables the "nativecrypto" feature, an
+  # alternative, less-tested code path that breaks security-key auth
+  # (sk-ssh-ed25519). See https://github.com/nresare/pam-ssh-agent/issues/105
+  cargo build --frozen --release
 }
 
 check() {
   export RUSTUP_TOOLCHAIN=stable
   cd $pkgname-$pkgver
-  cargo test --frozen --all-features
+  cargo test --frozen
 }
 
 package() {
