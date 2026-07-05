@@ -1,0 +1,24 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=herdr-bin
+pkgver=0.7.1
+pkgrel=1
+pkgdesc="Supervise multiple coding agents in one terminal"
+arch=('x86_64')
+url="https://github.com/ogulcancelik/herdr"
+license=('AGPL-3.0-or-later')
+provides=("herdr=${pkgver}")
+conflicts=('herdr')
+options=('!strip' '!debug')
+# upstream release assets use unversioned filenames; rename with $pkgver so
+# cached sources do not collide across versions
+source=("herdr-${pkgver}-x86_64::${url}/releases/download/v${pkgver}/herdr-linux-x86_64"
+        "LICENSE-${pkgver}::https://raw.githubusercontent.com/ogulcancelik/herdr/v${pkgver}/LICENSE")
+sha256sums=('b965acaffc2c22f54b6e6c64af7cf8e98a3f4ac2622630a0599c67a4b9d8a654'
+            'a7fa24f74382fb3e4d320a608533a7c2999dbc0f780f1f734c8b891b31f0d9bd')
+
+package() {
+    install -Dm755 "herdr-${pkgver}-x86_64" "${pkgdir}/usr/bin/herdr"
+    # LICENSE records the dual-licensing terms (AGPL + commercial)
+    install -Dm644 "LICENSE-${pkgver}" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
