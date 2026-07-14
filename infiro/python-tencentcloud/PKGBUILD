@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname='python-tencentcloud'
-pkgver=3.1.128
+pkgver=3.1.132
 pkgrel=1
 pkgdesc='Tencent Cloud API 3.0 SDK for Python'
 url='https://github.com/TencentCloud/tencentcloud-sdk-python'
@@ -14,7 +14,7 @@ conflicts=(tencentcloud-sdk-python)
 source=(
   "tencentcloud-sdk-python-${pkgver}.tar.gz::${url}/archive/refs/tags/${pkgver}.tar.gz"
 )
-sha256sums=('f103ecd4013f463e6510162253885b236981e4e756a07f37328e24a04e41d54b')
+sha256sums=('628b30864f9259b4a55369e8096334940b47ec46004867f2f380c7be598b24fb')
 
 build() {
   cd "tencentcloud-sdk-python-${pkgver}"
