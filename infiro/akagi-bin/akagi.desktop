@@ -1,0 +1,9 @@
+[Desktop Entry]
+Type=Application
+Name=Akagi
+Comment=Real-time mahjong AI assistant
+Exec=akagi
+Icon=akagi
+Terminal=false
+Categories=Game;
+StartupWMClass=akagi

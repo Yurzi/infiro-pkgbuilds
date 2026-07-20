@@ -1,0 +1,21 @@
+Akagi
+================================
+
+Akagi is installed read-only under /opt/akagi and launched through
+/usr/bin/akagi. Runtime data is stored below:
+
+  ${XDG_CONFIG_HOME:-$HOME/.config}/akagi
+
+This includes config.toml, logs, history, certificates, Chromium profiles,
+and the user-managed mjai_bot directory.
+
+The large Python 3.12 and uv runtime shipped in the upstream portable archive
+is not included in this package. The built-in Rust bots work without it. To
+run external Python mjai bots, install the uv optional dependency. On the next
+launch, the wrapper asks uv to install and select a managed Python 3.12 runtime;
+the first setup therefore requires a network connection and downloads about
+33 MiB into uv's per-user data directory. Arch's system Python package is not
+required.
+
+The system installation is read-only and is updated by pacman. Akagi's
+in-application updater therefore cannot replace the installed executable.

@@ -1,0 +1,62 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=akagi-bin
+pkgver=3.3.3
+pkgrel=1
+pkgdesc="Real-time mahjong AI assistant for Mahjong Soul, Tenhou, Riichi City, and more"
+arch=('x86_64')
+url="https://github.com/shinkuan/Akagi"
+license=('Apache-2.0')
+depends=(
+  'cairo'
+  'gdk-pixbuf2'
+  'glib2'
+  'glibc'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libgcc'
+  'libsoup3'
+  'webkit2gtk-4.1'
+)
+optdepends=(
+  'chromium: for Chromium capture mode'
+  'uv: external mjai bot runtime'
+)
+provides=("akagi=${pkgver}")
+conflicts=('akagi')
+options=('!strip' '!debug')
+
+_archive="akagi-${pkgver}-linux-x64.zip"
+_archive_root="akagi-${pkgver}-linux-x64"
+source=(
+  "${_archive}::${url}/releases/download/v${pkgver}/${_archive}"
+  "akagi.png::https://raw.githubusercontent.com/shinkuan/Akagi/v${pkgver}/icons/128x128.png"
+  'akagi.sh'
+  'akagi.desktop'
+  'README'
+)
+noextract=("${_archive}")
+sha256sums=('06a8af051c08ce0660a4ff8b4912da89838024d7f8043fe1f9629533c6bcd176'
+  '47b91e7be9c117e7ee2de2ce0de4891be7c5df43154516a9cd155cc620d016ba'
+  '42e99303262a117b319366cb950acd58ad48f896f09df01c7f609c11d2ec4ece'
+  '2ff797e2be40022c21954d378da89fcf5fb5e5a2202c11da8fa6ee64c7a2b65c'
+  '60e69744d760856f775ef66200829218d9dd35a47457e70dcae8ada3ce710ce9')
+
+package() {
+  install -d "${pkgdir}/opt/akagi"
+  bsdtar -xOf "${_archive}" "${_archive_root}/akagi" >"${pkgdir}/opt/akagi/akagi"
+  chmod 755 "${pkgdir}/opt/akagi/akagi"
+
+  install -Dm755 akagi.sh "${pkgdir}/usr/bin/akagi"
+  install -Dm644 akagi.desktop "${pkgdir}/usr/share/applications/akagi.desktop"
+  install -Dm644 akagi.png \
+    "${pkgdir}/usr/share/icons/hicolor/128x128/apps/akagi.png"
+
+  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  bsdtar -xOf "${_archive}" "${_archive_root}/LICENSE.txt" \
+    >"${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  bsdtar -xOf "${_archive}" "${_archive_root}/NOTICE" \
+    >"${pkgdir}/usr/share/licenses/${pkgname}/NOTICE"
+
+  install -Dm644 README "${pkgdir}/usr/share/doc/${pkgname}/README"
+}
