@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=herdr-bin
-pkgver=0.7.5
+pkgver=0.8.0
 pkgrel=1
 pkgdesc="Supervise multiple coding agents in one terminal"
 arch=('x86_64')
@@ -14,8 +14,8 @@ options=('!strip' '!debug')
 # cached sources do not collide across versions
 source=("herdr-${pkgver}-x86_64::${url}/releases/download/v${pkgver}/herdr-linux-x86_64"
         "LICENSE-${pkgver}::https://raw.githubusercontent.com/ogulcancelik/herdr/v${pkgver}/LICENSE")
-sha256sums=('3dc83288073e4c2d3c679a30e7be97bcca9141c6fd17dbbb9219142e95c59253'
-            'a7fa24f74382fb3e4d320a608533a7c2999dbc0f780f1f734c8b891b31f0d9bd')
+sha256sums=('b872ea7e40fa2cb17e857ac9b62b1bf26db7b403c622f5d2f3f5b35f6e9acd28'
+            'c71d239df91726fc519c6eb72d318ec65820627232b2f796219e87dcf35d0ab4')
 
 package() {
     install -Dm755 "herdr-${pkgver}-x86_64" "${pkgdir}/usr/bin/herdr"
