@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=akagi-bin
-pkgver=3.4.1
+pkgver=3.4.2
 pkgrel=1
 pkgdesc="Real-time mahjong AI assistant for Mahjong Soul, Tenhou, Riichi City, and more"
 arch=('x86_64')
@@ -36,7 +36,7 @@ source=(
   'README'
 )
 noextract=("${_archive}")
-sha256sums=('a56527da7736d6174f8f2841b08bf123f557640879a616afa35a26ff6f2a7cbd'
+sha256sums=('92c972f06b461cba701e23f8319767b67a9893a041404212246c9ad6d353bcca'
             '47b91e7be9c117e7ee2de2ce0de4891be7c5df43154516a9cd155cc620d016ba'
             '42e99303262a117b319366cb950acd58ad48f896f09df01c7f609c11d2ec4ece'
             '2ff797e2be40022c21954d378da89fcf5fb5e5a2202c11da8fa6ee64c7a2b65c'
