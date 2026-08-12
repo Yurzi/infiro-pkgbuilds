@@ -2,7 +2,7 @@
 
 pkgname=usbtree
 pkgver=0.1.1
-pkgrel=1
+pkgrel=2
 pkgdesc="Cross-platform TUI for inspecting the USB device tree"
 arch=('x86_64')
 url='https://github.com/gnomeria/usbtree'
