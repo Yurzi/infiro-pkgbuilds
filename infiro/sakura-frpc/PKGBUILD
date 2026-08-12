@@ -2,7 +2,7 @@
 
 pkgname=sakura-frpc
 pkgver=0.51.0_sakura_14
-pkgrel=1
+pkgrel=2
 pkgdesc="SakuraFrp client"
 arch=('x86_64')
 url="https://www.natfrp.com/"
