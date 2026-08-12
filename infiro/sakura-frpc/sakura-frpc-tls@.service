@@ -1,0 +1,18 @@
+[Unit]
+Description=SakuraFrp Client Service
+After=network-online.target nss-lookup.target
+
+[Service]
+Type=simple
+DynamicUser=yes
+Restart=on-failure
+RestartSec=5s
+ExecStart=/usr/bin/sakura-frpc --natfrp_tls -f %i
+WorkingDirectory=/var/lib/sakura-frp
+StateDirectory=sakura-frp
+CapabilityBoundingSet=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+AmbientCapabilities=CAP_NET_ADMIN CAP_NET_BIND_SERVICE CAP_NET_RAW
+NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,33 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=sakura-frpc
+pkgver=0.51.0_sakura_14
+pkgrel=1
+pkgdesc="SakuraFrp client"
+arch=('x86_64')
+url="https://www.natfrp.com/"
+license=('LicenseRef-custom')
+provides=('sakura-frp' 'natfrp')
+conflicts=('sakura-frp')
+options=('!strip')
+
+_upstreamver="${pkgver//_/-}"
+source=(
+  "sakura-frpc::https://nya.globalslb.net/natfrp/client/frpc/${_upstreamver}/frpc_linux_amd64"
+  "sakura-frpc@.service"
+  "sakura-frpc-tls@.service"
+  "LICENSE::https://www.natfrp.com/policy/tos"
+)
+sha256sums=('8d3fcf1e24537719c36c6270c122fcdc09954d22ae9dd74105241675e6dce4d0'
+            'ae8d7af07c2c6264c6579cf77a516336b7448588047d139fa5e858c8f20dfcb6'
+            '5a19b898213229f0a5993675d95a41cdec7865135ee24bfd600f180b7fa1ba0c'
+            '3116690ceaf2ba76eabefff86ba36d61cc0f0406f5bcab44c694d08a469bee42')
+
+package() {
+  install -Dm755 "${srcdir}/sakura-frpc" "${pkgdir}/usr/bin/sakura-frpc"
+  install -Dm644 "${srcdir}/sakura-frpc@.service" \
+    "${pkgdir}/usr/lib/systemd/system/sakura-frpc@.service"
+  install -Dm644 "${srcdir}/sakura-frpc-tls@.service" \
+    "${pkgdir}/usr/lib/systemd/system/sakura-frpc-tls@.service"
+  install -Dm644 "${srcdir}/LICENSE" "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
