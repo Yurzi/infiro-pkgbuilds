@@ -1,0 +1,18 @@
+maintainers:
+  - github: Yurzi
+
+build_prefix: extra-x86_64
+
+pre_build_script: |
+  newver = _G.newver.replace('-rc.', 'rc.')
+  update_pkgver_and_pkgrel(newver)
+
+post_build_script: |
+  git_pkgbuild_commit()
+
+update_on:
+  - source: github
+    github: deepseek-ai/deepseek-harness
+    query: dsh-v
+    prefix: dsh-v
+    use_latest_tag: true

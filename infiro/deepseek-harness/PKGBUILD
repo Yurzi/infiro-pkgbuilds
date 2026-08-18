@@ -1,0 +1,99 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=deepseek-harness
+pkgver=0.1.0rc.7
+pkgrel=1
+pkgdesc='Open-source agent harness from DeepSeek'
+arch=('x86_64')
+url='https://github.com/deepseek-ai/deepseek-harness'
+license=('MIT')
+depends=(
+  'nodejs'
+  'pnpm'
+)
+makedepends=('npm')
+conflicts=(
+  'deepseek-harness-bin'
+  'deepseek-harness-git'
+)
+options=('!strip' '!debug')
+
+_upstream_ver="${pkgver/rc/-rc}"
+_tag="dsh-v${_upstream_ver}"
+_source_dir="deepseek-harness-${_tag}"
+source=(
+  "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${_tag}.tar.gz"
+  'package-runtime.mjs'
+)
+sha256sums=('ffd2f18e9ccb0e7cf22f2dd0e55d4eabdd7bd21ed5544f75c84a3d649f123320'
+            '56ee38fc17678c59c6af4c512f1b2fbbca643b5e112b3c3c0a441ae2fef1d359')
+
+prepare() {
+  cd "${_source_dir}"
+  export pnpm_config_store_dir="${srcdir}/pnpm-store"
+  CI=true pnpm install --frozen-lockfile
+}
+
+build() {
+  cd "${_source_dir}"
+  export pnpm_config_store_dir="${srcdir}/pnpm-store"
+
+  pnpm run build
+  pnpm exec tsx scripts/release/pack.ts --family vendor --out dist/arch-vendor
+  pnpm exec tsx scripts/release/pack.ts --family dsh --out dist/arch-dsh
+
+  node "${srcdir}/package-runtime.mjs" \
+    "${srcdir}/deepseek-harness-runtime" \
+    "${PWD}/dist/arch-vendor" \
+    "${PWD}/dist/arch-dsh"
+
+  npm install \
+    --prefix "${srcdir}/deepseek-harness-runtime" \
+    --cache "${srcdir}/npm-cache" \
+    --install-links \
+    --omit=dev \
+    --no-audit \
+    --no-fund \
+    --no-package-lock \
+    --strict-allow-scripts
+}
+
+check() {
+  local _dsh="${srcdir}/deepseek-harness-runtime/node_modules/.bin/dsh"
+  local _check_home
+  _check_home="$(mktemp -d)"
+  trap 'rm -rf "${_check_home}"' RETURN
+
+  [[ "$("${_dsh}" --version)" == "${_upstream_ver}" ]]
+  "${_dsh}" --help >/dev/null
+  DSH_HOME="${_check_home}" "${_dsh}" \
+    --profile headless --dump-default-config >/dev/null
+  DSH_HOME="${_check_home}" "${_dsh}" \
+    --profile web --dump-default-config >/dev/null
+}
+
+package() {
+  cd "${_source_dir}"
+
+  install -d "${pkgdir}/usr/lib/${pkgname}"
+  cp -a --no-preserve=ownership \
+    "${srcdir}/deepseek-harness-runtime/node_modules" \
+    "${pkgdir}/usr/lib/${pkgname}/"
+  rm -f "${pkgdir}/usr/lib/${pkgname}/node_modules/.package-lock.json"
+
+  # Rolldown's region comments and source maps retain the absolute build root.
+  while IFS= read -r -d '' _file; do
+    sed -i "s|${srcdir}/${_source_dir}/||g" "${_file}"
+  done < <(grep -IlRZ "${srcdir}/${_source_dir}/" \
+    "${pkgdir}/usr/lib/${pkgname}/node_modules")
+
+  install -d "${pkgdir}/usr/bin"
+  ln -s "../lib/${pkgname}/node_modules/.bin/dsh" "${pkgdir}/usr/bin/dsh"
+
+  install -Dm644 README.md \
+    "${pkgdir}/usr/share/doc/${pkgname}/README.md"
+  install -Dm644 THIRD_PARTY_NOTICES.md \
+    "${pkgdir}/usr/share/doc/${pkgname}/THIRD_PARTY_NOTICES.md"
+  install -Dm644 LICENSE \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
