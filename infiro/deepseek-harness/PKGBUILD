@@ -2,7 +2,7 @@
 
 pkgname=deepseek-harness
 pkgver=0.1.0rc.7
-pkgrel=1
+pkgrel=2
 pkgdesc='Open-source agent harness from DeepSeek'
 arch=('x86_64')
 url='https://github.com/deepseek-ai/deepseek-harness'
