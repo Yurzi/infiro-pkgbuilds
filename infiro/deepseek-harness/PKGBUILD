@@ -1,8 +1,8 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=deepseek-harness
-pkgver=0.1.0rc.7
-pkgrel=2
+pkgver=0.1.0rc.8
+pkgrel=1
 pkgdesc='Open-source agent harness from DeepSeek'
 arch=('x86_64')
 url='https://github.com/deepseek-ai/deepseek-harness'
@@ -20,12 +20,13 @@ options=('!strip' '!debug')
 
 _upstream_ver="${pkgver/rc/-rc}"
 _tag="dsh-v${_upstream_ver}"
+_commit=141eb6fef83422698aef7a981029e843e8161534
 _source_dir="deepseek-harness-${_tag}"
 source=(
   "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${_tag}.tar.gz"
   'package-runtime.mjs'
 )
-sha256sums=('ffd2f18e9ccb0e7cf22f2dd0e55d4eabdd7bd21ed5544f75c84a3d649f123320'
+sha256sums=('3cff6b7646f264c467a81257d472bf0f5d06e08d5790865d5aa65c6a8fa38ffa'
             '56ee38fc17678c59c6af4c512f1b2fbbca643b5e112b3c3c0a441ae2fef1d359')
 
 prepare() {
@@ -37,6 +38,9 @@ prepare() {
 build() {
   cd "${_source_dir}"
   export pnpm_config_store_dir="${srcdir}/pnpm-store"
+  # Release archives lack .git; upstream supports an explicit commit for them.
+  export DSH_CLIENT_COMMIT_HASH="${_commit}"
+  export DSH_BUILD_CLIENT_PROFILE=official
 
   pnpm run build
   pnpm exec tsx scripts/release/pack.ts --family vendor --out dist/arch-vendor

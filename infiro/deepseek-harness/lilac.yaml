@@ -4,6 +4,22 @@ maintainers:
 build_prefix: extra-x86_64
 
 pre_build_script: |
+  import json
+  import re
+  import urllib.request
+
+  tag = f'dsh-v{_G.newver}'
+  with urllib.request.urlopen(
+      f'https://api.github.com/repos/deepseek-ai/deepseek-harness/commits/{tag}'
+  ) as response:
+      commit = json.load(response)['sha']
+
+  with open('PKGBUILD') as f:
+      content = f.read()
+  content = re.sub(r'^_commit=.*$', f'_commit={commit}', content, flags=re.M)
+  with open('PKGBUILD', 'w') as f:
+      f.write(content)
+
   newver = _G.newver.replace('-rc.', 'rc.')
   update_pkgver_and_pkgrel(newver)
 
