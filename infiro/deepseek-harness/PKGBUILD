@@ -18,7 +18,7 @@ conflicts=(
 )
 options=('!strip' '!debug')
 
-_upstream_ver="${pkgver/rc/-rc}"
+_upstream_ver=0.1.1-rc.2
 _tag="dsh-v${_upstream_ver}"
 _commit=b150a551b8d465e31e418e1b2eaf5e79bbb7d28e
 _source_dir="deepseek-harness-${_tag}"

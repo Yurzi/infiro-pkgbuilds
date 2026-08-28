@@ -17,10 +17,13 @@ pre_build_script: |
   with open('PKGBUILD') as f:
       content = f.read()
   content = re.sub(r'^_commit=.*$', f'_commit={commit}', content, flags=re.M)
+  content = re.sub(
+      r'^_upstream_ver=.*$', f'_upstream_ver={_G.newver}', content, flags=re.M
+  )
   with open('PKGBUILD', 'w') as f:
       f.write(content)
 
-  newver = _G.newver.replace('-rc.', 'rc.')
+  newver = _G.newver.replace('-', '')
   update_pkgver_and_pkgrel(newver)
 
 post_build_script: |
