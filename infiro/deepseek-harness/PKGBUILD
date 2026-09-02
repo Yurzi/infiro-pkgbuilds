@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=deepseek-harness
-pkgver=0.1.2alpha.3
+pkgver=0.1.2alpha.4
 pkgrel=1
 pkgdesc='Open-source agent harness from DeepSeek'
 arch=('x86_64')
@@ -18,15 +18,15 @@ conflicts=(
 )
 options=('!strip' '!debug')
 
-_upstream_ver=0.1.2-alpha.3
+_upstream_ver=0.1.2-alpha.4
 _tag="dsh-v${_upstream_ver}"
-_commit=dd6322d604e00eec1ba5e0c8541159906a21094a
+_commit=4e84901e6471b79ec0338099867ebb4606d12bb5
 _source_dir="deepseek-harness-${_tag}"
 source=(
   "${pkgname}-${pkgver}.tar.gz::${url}/archive/refs/tags/${_tag}.tar.gz"
   'package-runtime.mjs'
 )
-sha256sums=('1c4dd39c88950d09dbb6d393cc010faec726ed4855420921ef9caa1925a3db7e'
+sha256sums=('c5acde3cc3ce7a01ab6daa6cc7fd1f7dc7b8a62d5e8bcc053caaf916f5ca00bb'
             '56ee38fc17678c59c6af4c512f1b2fbbca643b5e112b3c3c0a441ae2fef1d359')
 
 prepare() {
