@@ -32,7 +32,6 @@ post_build_script: |
 update_on:
   - source: github
     github: deepseek-ai/deepseek-harness
-    query: dsh-v
     prefix: dsh-v
-    use_latest_tag: true
+    use_max_tag: true
     include_regex: '^dsh-v[0-9]+(?:\.[0-9]+)*-rc\.[0-9]+$'
