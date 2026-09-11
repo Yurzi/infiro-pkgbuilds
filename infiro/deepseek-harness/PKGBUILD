@@ -2,7 +2,7 @@
 
 pkgname=deepseek-harness
 pkgver=0.1.2rc.1
-pkgrel=2
+pkgrel=3
 pkgdesc='Open-source agent harness from DeepSeek'
 arch=('x86_64')
 url='https://github.com/deepseek-ai/deepseek-harness'
@@ -43,8 +43,9 @@ build() {
   export DSH_BUILD_CLIENT_PROFILE=official
 
   pnpm run build
-  pnpm exec tsx scripts/release/pack.ts --family vendor --out dist/arch-vendor
-  pnpm exec tsx scripts/release/pack.ts --family dsh --out dist/arch-dsh
+  # Release packing needs the pnpm lifecycle environment (npm_execpath).
+  pnpm run release:pack --family vendor --out dist/arch-vendor
+  pnpm run release:pack --family dsh --out dist/arch-dsh
 
   node "${srcdir}/package-runtime.mjs" \
     "${srcdir}/deepseek-harness-runtime" \
