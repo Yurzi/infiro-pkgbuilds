@@ -2,8 +2,8 @@
 
 _extname=pgvector
 pkgname=postgresql-${_extname}
-pkgver=0.8.6
-pkgrel=3
+pkgver=0.8.7
+pkgrel=1
 pkgdesc="A vector similarity search extension for PostgreSQL"
 arch=('x86_64')
 url='https://github.com/pgvector/pgvector'
@@ -13,7 +13,7 @@ makedepends=('llvm' 'clang')
 optdepends=()
 _archive="${_extname}-${pkgver}"
 source=("${_archive}.tar.gz::https://github.com/pgvector/pgvector/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('10bf9938906e5d643bbc4a7eea104b6f57ba4898e5b76b20e60484ea1d5a7f8f')
+sha256sums=('cac0b10c360f05b2d521200105ba3697e773d4cd3731f5a915a7e37ebe0bea85')
 
 build() {
   cd "$srcdir/$_archive"
