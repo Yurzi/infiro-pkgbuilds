@@ -3,7 +3,7 @@
 _pkgname=FjordLauncher
 pkgname=fjordlauncher
 pkgver=11.1.1.0
-pkgrel=1
+pkgrel=2
 _archive=${_pkgname}-${pkgver}
 pkgdesc="Prism Launcher fork with support for alternative auth servers"
 arch=('i686' 'x86_64' 'aarch64')
