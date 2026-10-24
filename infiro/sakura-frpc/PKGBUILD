@@ -1,7 +1,7 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=sakura-frpc
-pkgver=0.51.0_sakura_15
+pkgver=0.51.0_sakura_15.1
 pkgrel=1
 pkgdesc="SakuraFrp client"
 arch=('x86_64')
@@ -18,10 +18,10 @@ source=(
   "sakura-frpc-tls@.service"
   "LICENSE::https://www.natfrp.com/policy/tos"
 )
-sha256sums=('52c1a53e763f17d33f1b34661e4283bc674979774b458f5568e9973ad1e68a99'
+sha256sums=('f4d07fca61c9a048e17cb171597f49171ce55b1a8bc2e0ab4e2b4d86c444f402'
             'ae8d7af07c2c6264c6579cf77a516336b7448588047d139fa5e858c8f20dfcb6'
             '5a19b898213229f0a5993675d95a41cdec7865135ee24bfd600f180b7fa1ba0c'
-            '7a63d75b6480e9864636eba7a414c92cc07163e09007c4fac6b8b62365e4e614')
+            'c8ed831630add3ff8527f36be118580f995cf0d29950269a217ff087945cf13c')
 
 package() {
   install -Dm755 "${srcdir}/sakura-frpc" "${pkgdir}/usr/bin/sakura-frpc"
