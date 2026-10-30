@@ -1,8 +1,8 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=usbtree
-pkgver=0.1.1
-pkgrel=2
+pkgver=0.1.2
+pkgrel=1
 pkgdesc="Cross-platform TUI for inspecting the USB device tree"
 arch=('x86_64')
 url='https://github.com/gnomeria/usbtree'
@@ -10,7 +10,7 @@ license=('MIT')
 depends=('glibc' 'libgcc')
 makedepends=('rust')
 source=("${pkgname}-${pkgver}.tar.gz::https://github.com/gnomeria/usbtree/archive/refs/tags/v${pkgver}.tar.gz")
-sha256sums=('a315eeeb559911fffb1c2a17b6ebd418143168c888db5d3b737b05d8c34b3486')
+sha256sums=('09631627589b43ac2e93f6d2a1cf6a10e490f62a159396f35b6871180ad03617')
 
 prepare() {
   export RUSTUP_TOOLCHAIN=stable
