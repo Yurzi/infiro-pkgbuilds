@@ -1,10 +1,10 @@
 # Maintainer: Yurzi
 
 _java_ver=17
-_zulu_build=17.68.203-ca-fx
+_zulu_build=17.70.113-ca-fx
 _jdkname="zulu${_java_ver}-fx"
 pkgname="${_jdkname}-bin"
-pkgver=17.0.20.1
+pkgver=17.0.21.0.3
 pkgrel=1
 pkgdesc='Azul Zulu Builds of OpenJDK With OpenJFX are open source, TCK-tested and certified builds of OpenJDK.'
 arch=('x86_64')
@@ -28,7 +28,7 @@ conflicts=("zulu-${_java_ver}-bin")
 options=('!debug')
 install="$pkgname.install"
 source_x86_64=("https://cdn.azul.com/zulu/bin/zulu${_zulu_build}-jdk${pkgver}-linux_x64.tar.gz")
-sha256sums_x86_64=('d9aee66304a647e0bac7f732624ffac2b0c52962389291c08eacf00bc3779443')
+sha256sums_x86_64=('5337e0507ed539f1c35f9e0d3c4c7669d594a66e5acb937f84b65a9777a14ebd')
 
 _jvmdir="/usr/lib/jvm/${pkgname}"
 
