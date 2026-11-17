@@ -1,0 +1,7 @@
+post_install() {
+  echo "==> NOTE: Custom flags can be placed in ~/.config/antigravity-ide-flags.conf"
+}
+
+post_upgrade() {
+  post_install
+}

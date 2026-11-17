@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component type="desktop-application">
+	<id>com.google.antigravity.ide</id>
+	<metadata_license>0BSD</metadata_license>
+	<project_license>LicenseRef-Google-Antigravity</project_license>
+	<name>Antigravity IDE</name>
+	<developer id="com.google">
+		<name>Google LLC</name>
+	</developer>
+	<url type="homepage">https://antigravity.google/</url>
+	<summary>An agentic development platform from Google</summary>
+	<description>
+		<p>Google Antigravity IDE is an agentic development platform evolving the IDE into the agent-first era.</p>
+	</description>
+	<launchable type="desktop-id">antigravity-ide.desktop</launchable>
+	<content_rating type="oars-1.1"/>
+</component>
