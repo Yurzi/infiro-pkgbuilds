@@ -6,7 +6,7 @@ _build=4507555968450560
 # Workaround: upstream bundles @parcel/watcher 2.5.1 which triggers SIGTRAP/coredump on exit.
 # Official prebuilt 2.5.6 from npm fixes the teardown race condition (parcel-bundler/watcher#216).
 _watcher_ver=2.5.6
-pkgrel=1
+pkgrel=2
 pkgdesc='An agentic development platform from Google, evolving the IDE into the agent-first era'
 arch=('x86_64')
 url='https://antigravity.google/'
