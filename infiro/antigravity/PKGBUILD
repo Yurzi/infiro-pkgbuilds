@@ -1,0 +1,60 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=antigravity
+pkgver=2.32.1
+_build=6001966350991360
+pkgrel=1
+pkgdesc='Multi-agent orchestration platform by Google'
+arch=('x86_64')
+url='https://antigravity.google/product/antigravity-2'
+license=('LicenseRef-Google-Antigravity')
+depends=(
+  'alsa-lib'
+  'at-spi2-core'
+  'cairo'
+  'dbus'
+  'expat'
+  'glib2'
+  'glibc'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libcups'
+  'libgcc'
+  'libx11'
+  'libxcb'
+  'libxcomposite'
+  'libxdamage'
+  'libxext'
+  'libxfixes'
+  'libxkbcommon'
+  'libxrandr'
+  'mesa'
+  'nspr'
+  'nss'
+  'pango'
+  'systemd-libs'
+)
+options=('!strip' '!debug')
+source=(
+  "Antigravity-${pkgver}-${_build}.tar.gz::https://storage.googleapis.com/antigravity-public/antigravity-hub/${pkgver}-${_build}/linux-x64/Antigravity.tar.gz"
+  'antigravity.desktop'
+  'antigravity.png'
+)
+sha256sums=('4cb2d4fea74a74f17cfe251841b900249c5ad2728b961efdbf729dafae7fe842'
+            '0487541fc5345847f1967842f7e7ff57c91ce70293f17c81495d0bf3476e35a8'
+            'b27f0e4a6f14f491ba31bb24533a1f43c677362b12a0744a53fdd09d7c785317')
+
+package() {
+  install -d "${pkgdir}/opt"
+  cp -dr --no-preserve=ownership Antigravity-x64 "${pkgdir}/opt/Antigravity"
+
+  install -d "${pkgdir}/usr/bin"
+  ln -s /opt/Antigravity/antigravity "${pkgdir}/usr/bin/${pkgname}"
+
+  install -d "${pkgdir}/usr/share/licenses/${pkgname}"
+  ln -s /opt/Antigravity/LICENSE.electron.txt -t "${pkgdir}/usr/share/licenses/${pkgname}"
+  ln -s /opt/Antigravity/LICENSES.chromium.html -t "${pkgdir}/usr/share/licenses/${pkgname}"
+
+  install -Dm644 "${pkgname}.desktop" -t "${pkgdir}/usr/share/applications"
+  install -Dm644 "${pkgname}.png" "${pkgdir}/usr/share/icons/hicolor/512x512/apps/${pkgname}.png"
+}
