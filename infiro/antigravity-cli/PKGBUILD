@@ -3,7 +3,7 @@
 pkgname=antigravity-cli
 pkgver=1.5.11
 _build=6132547114106880
-pkgrel=1
+pkgrel=2
 pkgdesc="Google's agentic development platform (CLI companion)"
 arch=('x86_64')
 url='https://antigravity.google/product/antigravity-cli'
