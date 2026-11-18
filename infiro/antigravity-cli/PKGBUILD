@@ -1,0 +1,29 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=antigravity-cli
+pkgver=1.5.11
+_build=6132547114106880
+pkgrel=1
+pkgdesc="Google's agentic development platform (CLI companion)"
+arch=('x86_64')
+url='https://antigravity.google/product/antigravity-cli'
+license=('LicenseRef-Google-Antigravity')
+depends=('glibc')
+optdepends=(
+  'antigravity: to authenticate and share session state from the desktop application'
+  'xdg-utils: to open browser during OAuth authentication'
+)
+provides=("agy=${pkgver}")
+conflicts=('agy')
+options=('!strip' '!debug')
+source=(
+  "${pkgname}-${pkgver}-${_build}.tar.gz::https://storage.googleapis.com/antigravity-public/antigravity-cli/${pkgver}-${_build}/linux-x64/cli_linux_x64.tar.gz"
+  'LICENSE'
+)
+sha256sums=('df652c98fdf519a87c017b4e1d92f3fdb66c344de16e5e685c596637bbd28334'
+            '5528a506da2da62d849c1e84a7fa2bac10601a9e58961a7596a3068ed212a4ca')
+
+package() {
+  install -Dm755 antigravity "${pkgdir}/usr/bin/agy"
+  install -Dm644 LICENSE "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+}
