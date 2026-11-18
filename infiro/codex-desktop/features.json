@@ -1,0 +1,13 @@
+{
+  "enabled": [
+    "agent-workspace",
+    "appshots",
+    "automation-extensions",
+    "computer-use-linux",
+    "remote-control-ui",
+    "remote-mobile-control",
+    "shared-app-server-socket",
+    "tray-usage",
+    "ui-tweaks"
+  ]
+}

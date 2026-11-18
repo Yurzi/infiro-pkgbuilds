@@ -1,0 +1,181 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=codex-desktop
+pkgver=26.1111.71025
+_commit=6175ccd9c64857e1cf7105a86ca788c29e107d99
+pkgrel=1
+pkgdesc="Community Linux distribution of OpenAI's ChatGPT and Codex desktop app"
+arch=('x86_64')
+url='https://github.com/ilysenko/codex-desktop-linux'
+license=('MIT' 'LicenseRef-OpenAI-Terms')
+depends=(
+  'alsa-lib'
+  'at-spi2-core'
+  'bash'
+  'cairo'
+  'dbus'
+  'expat'
+  'gcc-libs'
+  'gdk-pixbuf2'
+  'glib2'
+  'glibc'
+  'graphite'
+  'gtk3'
+  'hicolor-icon-theme'
+  'libcups'
+  'libdrm'
+  'libglvnd'
+  'libnotify'
+  'libusb'
+  'libx11'
+  'libxcb'
+  'libxcomposite'
+  'libxdamage'
+  'libxext'
+  'libxfixes'
+  'libxkbcommon'
+  'libxrandr'
+  'mesa'
+  'nodejs'
+  'nspr'
+  'nss'
+  'openssl'
+  'pango'
+  'systemd-libs'
+  'tpm2-tss'
+  'xdg-utils'
+  'xz'
+)
+makedepends=(
+  'asar'
+  'curl'
+  'dpkg'
+  'git'
+  'gnupg'
+  'python'
+  'rust'
+)
+optdepends=(
+  'apparmor: load the bundled AppArmor profile for Chromium user namespaces'
+  'git: project source control integration'
+  'libpulse: PulseAudio/PipeWire audio integration'
+  'libsecret: desktop keyring integration'
+  'xdg-desktop-portal: Wayland screenshot and remote-desktop integration for Computer Use'
+  'xorg-xinput: bare-modifier double-tap shortcut support on X11 (AppShots)'
+  'xorg-xmodmap: keycode lookup for bare-modifier shortcuts on X11 (AppShots)'
+  'ydotool: synthetic input fallback for Computer Use'
+)
+conflicts=('codex-desktop-git' 'codex-desktop-linux' 'openai-codex-desktop')
+backup=('etc/apparmor.d/codex-desktop')
+options=('!debug' '!strip')
+install="${pkgname}.install"
+source=(
+  "${pkgname}::git+${url}.git#commit=${_commit}"
+  'features.json'
+  'LicenseRef-OpenAI-Terms'
+)
+source_x86_64=(
+  "chatgpt_${pkgver}_amd64.deb::https://persistent.oaistatic.com/codex-app-prod/linux/deb/pool/main/c/chatgpt/chatgpt_${pkgver}_amd64.deb"
+)
+noextract=("chatgpt_${pkgver}_amd64.deb")
+sha256sums=('SKIP'
+            'f1e8cec5e270794d916e758b23021b31e391ba29ae9f7329c636de2f4014c009'
+            '316a967ffd7cd15a5d717c6c151dea6a357eb4300b1cebc7ccde9611d51ced6c')
+sha256sums_x86_64=('8197424cbcea3a7c0d445a544eaa6b99df8b8ef8b1d182e2b743f702753c7a70')
+
+prepare() {
+  cd "${srcdir}/${pkgname}"
+
+  # Assert PKGBUILD matches upstream's CI-validated official package manifest
+  node - "${pkgver}" "${sha256sums_x86_64[0]}" <<'NODE'
+const manifest = require("./nix/upstream-linux-packages.json");
+const [expectedVer, expectedSha] = process.argv.slice(2);
+if (manifest.version !== expectedVer || manifest.amd64?.sha256 !== expectedSha) {
+  console.error(
+    `Manifest mismatch: PKGBUILD has ${expectedVer} (${expectedSha}), ` +
+    `nix/upstream-linux-packages.json has ${manifest.version} (${manifest.amd64?.sha256})`
+  );
+  process.exit(1);
+}
+NODE
+
+  cp "${srcdir}/features.json" linux-features/features.json
+  export RUSTUP_TOOLCHAIN=stable
+  cargo fetch --locked --target "$(rustc --print host-tuple)"
+}
+
+build() {
+  cd "${srcdir}/${pkgname}"
+
+  export CFLAGS+=" -ffat-lto-objects"
+  export RUSTUP_TOOLCHAIN=stable
+  export CARGO_NET_OFFLINE=true
+  export CODEX_ASAR_BIN=/usr/bin/asar
+  export CODEX_INSTALL_DIR="${srcdir}/codex-app"
+  export CODEX_INSTALL_TRANSACTION_ACTIVE=1
+  export CODEX_LINUX_FEATURES_CONFIG="${PWD}/linux-features/features.json"
+  export PACKAGE_WITH_UPDATER=0
+
+  make build-native-feature-helpers
+  ./install.sh --fresh --skip-oai-official-sig-verification \
+    "${srcdir}/chatgpt_${pkgver}_amd64.deb"
+}
+
+check() {
+  cd "${srcdir}/${pkgname}"
+
+  local -a _req_args=()
+  local _feat
+  while IFS= read -r _feat; do
+    [[ -n "${_feat}" ]] && _req_args+=(--require-enabled-feature "${_feat}")
+  done < <(node -p 'JSON.parse(require("fs").readFileSync("linux-features/features.json", "utf8")).enabled.join("\n")')
+
+  node scripts/ci/validate-patch-report.js \
+    "${srcdir}/codex-app/.codex-linux/patch-report.json" \
+    --profile upstream-build \
+    "${_req_args[@]}"
+
+  # Guard against newly added runtime dependencies in enabled features
+  local _dep
+  while IFS= read -r _dep; do
+    [[ -z "${_dep}" ]] && continue
+    if [[ ! " ${depends[*]} " =~ " ${_dep} " ]]; then
+      printf 'ERROR: enabled Linux feature requires pacman dependency missing from depends=(): %s\n' "${_dep}" >&2
+      return 1
+    fi
+  done < <(CODEX_LINUX_FEATURES_CONFIG="${PWD}/linux-features/features.json" \
+    node scripts/lib/linux-features.js --package-dependencies pacman "${srcdir}/codex-app")
+}
+
+package() {
+  (
+    cd "${srcdir}/${pkgname}"
+
+    export REPO_DIR="${PWD}"
+    export APP_DIR="${srcdir}/codex-app"
+    export PACKAGE_NAME='codex-desktop'
+    export PACKAGE_VERSION="${pkgver}-${pkgrel}"
+    export DESKTOP_TEMPLATE="${REPO_DIR}/packaging/linux/codex-desktop.desktop"
+    export CODEX_LINUX_FEATURES_CONFIG="${REPO_DIR}/linux-features/features.json"
+    export PACKAGE_WITH_UPDATER=0
+
+    . scripts/lib/package-common.sh
+    ICON_SOURCE="$(resolve_package_icon_source)"
+
+    assert_official_payload_architecture amd64
+    stage_common_package_files "${pkgdir}"
+    write_launcher_stub "${pkgdir}"
+    stage_linux_feature_package_resources "${pkgdir}" pacman
+    run_linux_feature_package_hooks "${pkgdir}" pacman
+    normalize_package_payload_permissions "${pkgdir}"
+    restore_linux_feature_payload_permissions "${pkgdir}"
+    restore_linux_feature_package_resource_permissions "${pkgdir}" pacman
+  )
+
+  install -Dm644 "${srcdir}/${pkgname}/LICENSE" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 "${srcdir}/LicenseRef-OpenAI-Terms" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LicenseRef-OpenAI-Terms"
+  ln -s /opt/codex-desktop/LICENSES.chromium.html \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSES.chromium.html"
+}

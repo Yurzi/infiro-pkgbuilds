@@ -1,0 +1,71 @@
+maintainers:
+  - github: Yurzi
+
+build_prefix: extra-x86_64
+time_limit_hours: 2
+
+pre_build_script: |
+  import json, re, subprocess, urllib.request
+
+  repo_url = 'https://github.com/ilysenko/codex-desktop-linux.git'
+  raw_base = 'https://raw.githubusercontent.com/ilysenko/codex-desktop-linux'
+
+  with open('PKGBUILD') as f:
+      content = f.read()
+
+  cur_ver_m = re.search(r'^pkgver=(.+)$', content, flags=re.M)
+  cur_commit_m = re.search(r'^_commit=([0-9a-f]{40})$', content, flags=re.M)
+  if not cur_ver_m or not cur_commit_m:
+      raise ValueError('Could not parse pkgver or _commit from PKGBUILD')
+
+  cur_ver = cur_ver_m.group(1).strip()
+  target_ver = _G.newver or cur_ver
+
+  if cur_ver == target_ver:
+      # Initial build or manual pkgrel/_commit rebuild on the same deb version:
+      # preserve the pinned _commit in PKGBUILD.
+      commit = cur_commit_m.group(1)
+  else:
+      out = subprocess.check_output(
+          ['git', 'ls-remote', repo_url, 'refs/heads/main'],
+          text=True,
+          timeout=30,
+      )
+      commit = out.split()[0]
+
+  manifest_url = f'{raw_base}/{commit}/nix/upstream-linux-packages.json'
+  with urllib.request.urlopen(manifest_url, timeout=30) as r:
+      manifest = json.load(r)
+
+  if manifest.get('version') != target_ver:
+      raise ValueError(
+          f"Manifest version mismatch at {commit}: expected {target_ver}, got {manifest.get('version')}"
+      )
+
+  expected_path = f'pool/main/c/chatgpt/chatgpt_{target_ver}_amd64.deb'
+  amd64 = manifest.get('amd64') or {}
+  if amd64.get('repositoryPath') != expected_path:
+      raise ValueError(
+          f"Unexpected amd64 repositoryPath: {amd64.get('repositoryPath')} (expected {expected_path})"
+      )
+  deb_sha256 = amd64['sha256']
+
+  content = re.sub(r'^_commit=.*$', f'_commit={commit}', content, flags=re.M)
+  content = re.sub(
+      r'^sha256sums_x86_64=\(.*\)$',
+      f"sha256sums_x86_64=('{deb_sha256}')",
+      content,
+      flags=re.M,
+  )
+  with open('PKGBUILD', 'w') as f:
+      f.write(content)
+
+  update_pkgver_and_pkgrel(target_ver, updpkgsums=False)
+
+post_build_script: |
+  git_pkgbuild_commit()
+
+update_on:
+  - source: regex
+    url: https://raw.githubusercontent.com/ilysenko/codex-desktop-linux/main/nix/upstream-linux-packages.json
+    regex: '"version":\s*"([^"]+)"'

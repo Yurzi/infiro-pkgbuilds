@@ -1,0 +1,14 @@
+The Linux packaging and community patches (ilysenko/codex-desktop-linux) are
+licensed under the MIT License; see the LICENSE file installed alongside this
+notice.
+
+The underlying ChatGPT and Codex desktop application payload is proprietary
+software owned by OpenAI, L.L.C., sourced from OpenAI's signed official Linux
+APT repository. Use of the application is governed by OpenAI's terms:
+
+  - Terms of Use: https://openai.com/policies/terms-of-use/
+  - Service Terms: https://openai.com/policies/service-terms/
+  - Privacy Policy: https://openai.com/policies/privacy-policy/
+
+This package is an unofficial community distribution and is not affiliated
+with, authorized by, or endorsed by OpenAI.

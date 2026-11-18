@@ -1,0 +1,38 @@
+CLEANUP_HELPER="/opt/codex-desktop/.codex-linux/codex-no-updater-transition-cleanup.sh"
+DESKTOP_ENTRY_DOCTOR="/opt/codex-desktop/.codex-linux/codex-desktop-entry-doctor.sh"
+
+codex_no_updater_cleanup_if_present() {
+  if [ -f "$CLEANUP_HELPER" ]; then
+    . "$CLEANUP_HELPER"
+    codex_no_updater_cleanup_update_manager_service || true
+  fi
+}
+
+codex_desktop_repair_if_present() {
+  if [ -f "$DESKTOP_ENTRY_DOCTOR" ]; then
+    . "$DESKTOP_ENTRY_DOCTOR"
+    codex_desktop_repair_system_package_shadow_entries codex-desktop || true
+  fi
+}
+
+codex_desktop_reload_apparmor_if_active() {
+  if command -v aa-enabled >/dev/null 2>&1 &&
+     command -v apparmor_parser >/dev/null 2>&1 &&
+     aa-enabled --quiet && [ -f /etc/apparmor.d/codex-desktop ]; then
+    apparmor_parser -r -W -T /etc/apparmor.d/codex-desktop >/dev/null 2>&1 || true
+  fi
+}
+
+post_install() {
+  codex_desktop_repair_if_present
+  codex_no_updater_cleanup_if_present
+  codex_desktop_reload_apparmor_if_active
+}
+
+post_upgrade() {
+  post_install
+}
+
+pre_remove() {
+  codex_no_updater_cleanup_if_present
+}
