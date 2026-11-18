@@ -3,7 +3,7 @@
 pkgname=codex-desktop
 pkgver=26.1111.71025
 _commit=6175ccd9c64857e1cf7105a86ca788c29e107d99
-pkgrel=1
+pkgrel=2
 pkgdesc="Community Linux distribution of OpenAI's ChatGPT and Codex desktop app"
 arch=('x86_64')
 url='https://github.com/ilysenko/codex-desktop-linux'
