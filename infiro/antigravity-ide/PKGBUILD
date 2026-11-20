@@ -1,12 +1,12 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=antigravity-ide
-pkgver=2.7.0
-_build=4507555968450560
+pkgver=2.8.0
+_build=6733682917113856
 # Workaround: upstream bundles @parcel/watcher 2.5.1 which triggers SIGTRAP/coredump on exit.
 # Official prebuilt 2.5.6 from npm fixes the teardown race condition (parcel-bundler/watcher#216).
 _watcher_ver=2.5.6
-pkgrel=2
+pkgrel=1
 pkgdesc='An agentic development platform from Google, evolving the IDE into the agent-first era'
 arch=('x86_64')
 url='https://antigravity.google/'
@@ -57,7 +57,7 @@ source=(
   'antigravity-ide.metainfo.xml'
   'antigravity-ide-workspace.xml'
 )
-sha256sums=('9360a86521c3e5498846254b743b1f3203768ebadf65a178bc549395936f7a5d'
+sha256sums=('7baa36baab285cb46101af958b8f7be6305458db9a44d8b3d0938d61f38597d7'
             '43eed2f56c7b33d32172cf79513e807b4588ecc4e05d53a306d78fc6c356a42e'
             'd3a803aa5b6aacb95c2e8a9719fd0c5038716d9f0fda356f5cbac1cbfc03e5c6'
             'eff871aa687041d8a3e4a5281255ff3e818cf4a317abb2aea82f5651a687db21'
