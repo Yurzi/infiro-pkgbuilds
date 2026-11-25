@@ -1,8 +1,8 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=antigravity-cli
-pkgver=1.5.15
-_build=5514532022517760
+pkgver=1.5.16
+_build=5250855658717184
 pkgrel=1
 pkgdesc="Google's agentic development platform (CLI companion)"
 arch=('x86_64')
@@ -20,7 +20,7 @@ source=(
   "${pkgname}-${pkgver}-${_build}.tar.gz::https://storage.googleapis.com/antigravity-public/antigravity-cli/${pkgver}-${_build}/linux-x64/cli_linux_x64.tar.gz"
   'LICENSE'
 )
-sha256sums=('8d9913298602049ef29e9669f35252b6b79571979ce1bd0fb27753c7bac84114'
+sha256sums=('9bdab234d06bad1a61be2321072652eb06be78baff1acbfae47331da5a090abc'
             '5528a506da2da62d849c1e84a7fa2bac10601a9e58961a7596a3068ed212a4ca')
 
 package() {
