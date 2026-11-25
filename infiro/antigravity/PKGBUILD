@@ -3,7 +3,7 @@
 pkgname=antigravity
 pkgver=2.35.1
 _build=4615540875067392
-pkgrel=1
+pkgrel=2
 pkgdesc='Multi-agent orchestration platform by Google'
 arch=('x86_64')
 url='https://antigravity.google/product/antigravity-2'
