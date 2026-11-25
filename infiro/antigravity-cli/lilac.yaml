@@ -4,27 +4,18 @@ maintainers:
 build_prefix: extra-x86_64
 
 pre_build_script: |
-  import json, re, urllib.request
+  pkgver, build = _G.newver.split('-', 1)
 
-  manifest_url = 'https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/manifests/linux_amd64.json'
-  with urllib.request.urlopen(manifest_url, timeout=30) as r:
-      manifest = json.load(r)
+  updated = False
+  for line in edit_file('PKGBUILD'):
+      if line.startswith('_build='):
+          line = f'_build={build}'
+          updated = True
+      print(line)
+  if not updated:
+      raise ValueError('Could not find _build= in PKGBUILD')
 
-  m = re.search(
-      r'antigravity-cli/(\d+(?:\.\d+)+)-(\d+)/linux-x64/cli_linux_x64\.tar\.gz',
-      manifest['url'],
-  )
-  if not m or m.group(1) != _G.newver:
-      raise ValueError(f'Could not find build ID for version {_G.newver}')
-  build = m.group(2)
-
-  with open('PKGBUILD') as f:
-      content = f.read()
-  content = re.sub(r'^_build=.*$', f'_build={build}', content, flags=re.M)
-  with open('PKGBUILD', 'w') as f:
-      f.write(content)
-
-  update_pkgver_and_pkgrel(_G.newver)
+  update_pkgver_and_pkgrel(pkgver)
 
 post_build_script: |
   git_pkgbuild_commit()
@@ -32,4 +23,4 @@ post_build_script: |
 update_on:
   - source: regex
     url: https://antigravity-cli-auto-updater-974169037036.us-central1.run.app/manifests/linux_amd64.json
-    regex: 'antigravity-cli/(\d+(?:\.\d+)+)-\d+/linux-x64/cli_linux_x64\.tar\.gz'
+    regex: 'antigravity-cli/(\d+(?:\.\d+)+-\d+)/linux-x64/cli_linux_x64\.tar\.gz'
