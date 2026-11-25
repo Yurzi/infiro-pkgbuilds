@@ -1,8 +1,8 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=codex-desktop
-pkgver=26.1117.41037
-_commit=2fd3d3d43584765aead76c46ed2b10f3c28cdc91
+pkgver=26.1120.50957
+_commit=bda8c7e36f9a1313a7facf35832f00998a2c9f06
 pkgrel=1
 pkgdesc="Community Linux distribution of OpenAI's ChatGPT and Codex desktop app"
 arch=('x86_64')
@@ -81,7 +81,7 @@ noextract=("chatgpt_${pkgver}_amd64.deb")
 sha256sums=('SKIP'
             'f1e8cec5e270794d916e758b23021b31e391ba29ae9f7329c636de2f4014c009'
             '316a967ffd7cd15a5d717c6c151dea6a357eb4300b1cebc7ccde9611d51ced6c')
-sha256sums_x86_64=('830e251b6ca4ad45fe6904127a790e8f00f7c26ed4c8039473f7323c7c4e2692')
+sha256sums_x86_64=('e8ab38df96d6070fd5d4582a606490637728243bb529e9edae19b3f0a6e664d2')
 
 prepare() {
   cd "${srcdir}/${pkgname}"
