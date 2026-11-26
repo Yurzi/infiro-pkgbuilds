@@ -1,9 +1,9 @@
 # Maintainer: Yurzi <yurzi@foxmail.com>
 
 pkgname=antigravity
-pkgver=2.35.1
-_build=4615540875067392
-pkgrel=2
+pkgver=2.35.2
+_build=4585983447007232
+pkgrel=1
 pkgdesc='Multi-agent orchestration platform by Google'
 arch=('x86_64')
 url='https://antigravity.google/product/antigravity-2'
@@ -40,7 +40,7 @@ source=(
   'antigravity.desktop'
   'antigravity.png'
 )
-sha256sums=('d921039a86fbfa0d06968c973eadffa83572b434a351a771b8ad9f241a493d7e'
+sha256sums=('2d33db282b1e9b3c7582c140dab9e86848f1b37a05bfa4a1dff7f44de1bf304f'
             '0487541fc5345847f1967842f7e7ff57c91ce70293f17c81495d0bf3476e35a8'
             'b27f0e4a6f14f491ba31bb24533a1f43c677362b12a0744a53fdd09d7c785317')
 
