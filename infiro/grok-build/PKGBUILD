@@ -1,0 +1,77 @@
+# Maintainer: Yurzi <yurzi@foxmail.com>
+
+pkgname=grok-build
+pkgver=1.0.92
+pkgrel=1
+pkgdesc="SpaceXAI's terminal-based AI coding agent"
+arch=('x86_64')
+url='https://x.ai/cli'
+license=(
+  'Apache-2.0'
+  '0BSD'
+  'BSD-2-Clause'
+  'BSD-3-Clause'
+  'BSL-1.0'
+  'CC0-1.0'
+  'CDLA-Permissive-2.0'
+  'ISC'
+  'LicenseRef-GPL-2.0-only-with-linking-exception'
+  'MIT'
+  'MIT-0'
+  'MPL-2.0'
+  'Unicode-3.0'
+  'Unicode-DFS-2016'
+  'Zlib'
+)
+makedepends=('zstd')
+optdepends=(
+  'git: repository status, diffs, and worktrees'
+  'xdg-utils: open a browser for login'
+)
+provides=("grok=${pkgver}")
+conflicts=('grok' 'grok-build-git')
+options=('!strip' '!debug')
+# Stable-channel builds are published as static binaries and are not tagged in
+# xai-org/grok-build; that tree lags the channel. License notices come from the
+# latest published source commit.
+_upstream_commit=2bdd1d6a6369de0e8c68132ea4539e9abd9e14a8
+source=(
+  "grok-${pkgver}-linux-x86_64.zst::https://x.ai/cli/grok-${pkgver}-linux-x86_64.zst"
+  "LICENSE-${_upstream_commit}::https://raw.githubusercontent.com/xai-org/grok-build/${_upstream_commit}/LICENSE"
+  "THIRD-PARTY-NOTICES-${_upstream_commit}::https://raw.githubusercontent.com/xai-org/grok-build/${_upstream_commit}/THIRD-PARTY-NOTICES"
+  "third_party-NOTICE-${_upstream_commit}::https://raw.githubusercontent.com/xai-org/grok-build/${_upstream_commit}/third_party/NOTICE"
+  "xai-grok-tools-THIRD_PARTY_NOTICES-${_upstream_commit}.md::https://raw.githubusercontent.com/xai-org/grok-build/${_upstream_commit}/crates/codegen/xai-grok-tools/THIRD_PARTY_NOTICES.md"
+  'grok.sh'
+)
+sha256sums=('af6423d41f3216536c7ca11cc4bb0c3841aeff16e706e92a9e9cee8486acb9f4'
+            '116f7778b9802e569b7fa3a532b17bd80eb13c67837def01eed093d4ea472f28'
+            'dcbdd42b8fe45aa28f67a7b9e82d9feadec2b958c050158aeaac460eba651d07'
+            '73aafdd2cb8c153f041fd202d2930745372ed1154681197283a2ab5c789532d3'
+            'e8785a6098a7ee780cd2db35745b8e53061cfb1b6da19147a308579466ea4e50'
+            'a502ebf7191b6c8b7c097e281bc548881f5a11bc476857facf6a88307a64aa93')
+
+package() {
+  install -Dm755 "grok-${pkgver}-linux-x86_64" "${pkgdir}/usr/lib/${pkgname}/grok"
+  install -Dm755 grok.sh "${pkgdir}/usr/bin/grok"
+
+  local bin="${pkgdir}/usr/lib/${pkgname}/grok"
+  mkdir -p "${srcdir}/home"
+  HOME="${srcdir}/home" GROK_DISABLE_AUTOUPDATER=1 \
+    "$bin" completions bash | install -Dm644 /dev/stdin \
+    "${pkgdir}/usr/share/bash-completion/completions/grok"
+  HOME="${srcdir}/home" GROK_DISABLE_AUTOUPDATER=1 \
+    "$bin" completions zsh | install -Dm644 /dev/stdin \
+    "${pkgdir}/usr/share/zsh/site-functions/_grok"
+  HOME="${srcdir}/home" GROK_DISABLE_AUTOUPDATER=1 \
+    "$bin" completions fish | install -Dm644 /dev/stdin \
+    "${pkgdir}/usr/share/fish/vendor_completions.d/grok.fish"
+
+  install -Dm644 "LICENSE-${_upstream_commit}" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/LICENSE"
+  install -Dm644 "THIRD-PARTY-NOTICES-${_upstream_commit}" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/THIRD-PARTY-NOTICES"
+  install -Dm644 "third_party-NOTICE-${_upstream_commit}" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/third_party-NOTICE"
+  install -Dm644 "xai-grok-tools-THIRD_PARTY_NOTICES-${_upstream_commit}.md" \
+    "${pkgdir}/usr/share/licenses/${pkgname}/xai-grok-tools-THIRD_PARTY_NOTICES.md"
+}
